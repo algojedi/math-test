@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom'
-import Main from './components/pages/main-pg/main'
-
+import Main from './pages/main-pg/main'
+import Header from './components/header/header.component'
 
 //import Register from './components/register/register'
 //import ProtectedRoute from './components/protected-route'
