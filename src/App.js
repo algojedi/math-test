@@ -8,7 +8,7 @@ import Header from './components/header/header.component'
 //import ProtectedRoute from './components/protected-route'
 
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends React.Component {
   constructor() {
@@ -22,16 +22,31 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+
+          console.log(this.state);
+        });
+      }
+
+      this.setState({ currentUser: userAuth });
     });
   }
-
+  
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
-
+  
+  
   render() {
     return (
       <div>
@@ -47,20 +62,3 @@ class App extends React.Component {
 
 export default App;
 
-/** 
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyCq_00wBlQPzvJAjUPUMBJATvnT-TEy5Uo",
-    authDomain: "math-db.firebaseapp.com",
-    databaseURL: "https://math-db.firebaseio.com",
-    projectId: "math-db",
-    storageBucket: "",
-    messagingSenderId: "189383719049",
-    appId: "1:189383719049:web:c9e0344a98ec69a4c8ae58",
-    measurementId: "G-XJ1LDSL2R0"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>  	*/
