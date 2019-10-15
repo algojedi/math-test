@@ -7,32 +7,39 @@ class Main extends Component {
         super(props);
         this.state = {  input : '',
                         correct : false,
-                        topNum: Math.floor(Math.random() * 101 + 1),
-                        bottomNum : Math.floor(Math.random() * 101 + 1)  };
+                        attempted: 0,
+                        score: 0,
+                        topNum: Math.floor(Math.random() * 50 + 1),
+                        bottomNum : Math.floor(Math.random() * 50 + 1)  };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    
     
     handleClick(e) {
         e.preventDefault();
         const answer = this.state.topNum + this.state.bottomNum;
         let isCorrect;
-        answer === Number(this.state.input) ? isCorrect = true : isCorrect = false;
+        let newScore = answer === Number(this.state.input) ? this.state.score + 1 : this.state.score;
         
-        this.setState({ correct : isCorrect,
-                        input: '' })
-        
+        this.setState({ attempted: this.state.attempted + 1,
+                        score: newScore,
+                        input: '',
+                        topNum: Math.floor(Math.random() * 50 + 1),
+                        bottomNum: Math.floor(Math.random() * 50 + 1) });
+        console.log(this.state.score);
     }
 
     handleChange(e) {
         this.setState({ input : e.target.value})
     }
 
+    handleKeyPress = e => {
+        if (e.keyCode === 13) this.handleClick(e);
+    }
+
     render() { 
         let top = this.state.topNum;
         let bottom = this.state.bottomNum;
-
 
         return ( 
         
@@ -42,8 +49,10 @@ class Main extends Component {
                 <div id = 'bottom'>{'+ ' + bottom}</div>
                 <div id = 'guess-wrapper'>
                     <input  id='guess'
+                            ref={input => input && input.focus()} 
                             value={this.state.input}
                             onChange={this.handleChange}
+                            onKeyDown={this.handleKeyPress}
                             ></input>
                     <button id='answer-btn'
                             onClick = {this.handleClick}>submit</button>
