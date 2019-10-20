@@ -13,8 +13,6 @@ class Counter extends React.Component {
     startTimer = () => {
         this.setState({
             timerOn: true
-            // timerTime: this.state.timerTime,
-            // timerStart: this.state.timerTime
         });
         this.timer = setInterval(() => {
             const newTime = this.state.timerTime - 1;
