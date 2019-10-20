@@ -13,16 +13,19 @@ class Counter extends React.Component {
     startTimer = () => {
         this.setState({
             timerOn: true
+            // timerTime: this.state.timerTime,
+            // timerStart: this.state.timerTime
         });
         this.timer = setInterval(() => {
             const newTime = this.state.timerTime - 1;
             if (newTime === 0) {
                 clearInterval(this.timer);
+                this.props.timeEnd();
                 this.setState({
                     timerTime: newTime,
                     timerOn: false
                 })
-                alert("Countdown ended")
+                //alert("Countdown ended")
             }
             else {
                 this.setState({

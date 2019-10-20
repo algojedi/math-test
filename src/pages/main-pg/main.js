@@ -37,6 +37,9 @@ class Main extends Component {
         if (e.keyCode === 13) this.handleClick(e);
     }
 
+    timeOver = () => {
+        alert("time's up");
+    }
     render() { 
         let top = this.state.topNum;
         let bottom = this.state.bottomNum;
@@ -45,7 +48,7 @@ class Main extends Component {
         
         <div id='q-container'>
         
-                <Counter/>
+                <Counter timeEnd={this.timeOver}/>
                 <div id = 'top'>{top}</div>
                 <div id = 'bottom'>{'+ ' + bottom}</div>
                 <div id = 'guess-wrapper'>
