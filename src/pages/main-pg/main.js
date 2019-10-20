@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './main.css';
-
+import Counter from '../../components/counter/counter';
 class Main extends Component {
     
     constructor(props) {
@@ -45,6 +45,7 @@ class Main extends Component {
         
         <div id='q-container'>
         
+                <Counter/>
                 <div id = 'top'>{top}</div>
                 <div id = 'bottom'>{'+ ' + bottom}</div>
                 <div id = 'guess-wrapper'>
