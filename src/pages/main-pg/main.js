@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import './main.css';
 import Counter from '../../components/counter/counter';
+import { ADDRCONFIG } from 'dns';
+
 class Main extends Component {
     
     constructor(props) {
         super(props);
         this.state = {  input : '',
-                        correct : false,
+                        //correct : false,
+                        //gameStarted: false, 
+                        operator: 'ADD',
+                        gameEnded: false,
                         attempted: 0,
                         score: 0,
                         topNum: Math.floor(Math.random() * 50 + 1),
@@ -17,8 +22,23 @@ class Main extends Component {
     
     handleClick(e) {
         e.preventDefault();
-        const answer = this.state.topNum + this.state.bottomNum;
-        let isCorrect;
+        let answer;
+        switch (this.state.operator) {
+            case 'ADD':
+                answer = this.state.topNum + this.state.bottomNum;
+                break;
+            case 'DIVIDE':
+                answer = this.state.topNum / this.state.bottomNum;
+                break;
+            case 'SUBTRACT':
+                answer = this.state.topNum - this.state.bottomNum;
+                break;
+            case 'MULT':
+                answer = this.state.topNum * this.state.bottomNum;
+                break;
+            default:
+                break;
+        }
         let newScore = answer === Number(this.state.input) ? this.state.score + 1 : this.state.score;
         
         this.setState({ attempted: this.state.attempted + 1,
@@ -26,7 +46,7 @@ class Main extends Component {
                         input: '',
                         topNum: Math.floor(Math.random() * 50 + 1),
                         bottomNum: Math.floor(Math.random() * 50 + 1) });
-        console.log(this.state.score);
+        console.log('current score: ' + this.state.score);
     }
 
     handleChange(e) {
@@ -38,19 +58,21 @@ class Main extends Component {
     }
 
     timeOver = () => {
-        alert("time's up");
+        const { score, attempted } = this.state;
+        console.log(`final score is ${score} out of ${attempted}`);
+        this.setState({ gameEnded: true });
     }
     render() { 
-        let top = this.state.topNum;
-        let bottom = this.state.bottomNum;
-
+        
+        const { topNum, bottomNum, score, attempted } = this.state;
+        let endMsg = `final score is ${score} out of ${attempted}: ${(score*100/attempted).toFixed(1)}%`;
         return ( 
         
         <div id='q-container'>
         
                 <Counter timeEnd={this.timeOver}/>
-                <div id = 'top'>{top}</div>
-                <div id = 'bottom'>{'+ ' + bottom}</div>
+                <div id = 'top'>{topNum}</div>
+                <div id = 'bottom'>{'+ ' + bottomNum}</div>
                 <div id = 'guess-wrapper'>
                     <input  id='guess'
                             ref={input => input && input.focus()} 
@@ -60,8 +82,9 @@ class Main extends Component {
                             ></input>
                     <button id='answer-btn'
                             onClick = {this.handleClick}>submit</button>
-                    <div>{this.state.correct ? 'great work!' : ''}</div>
                 </div>
+                <div id='game-end-message'>{this.state.gameEnded ? 
+                endMsg : ''}</div>
         </div> );
     }
 }
