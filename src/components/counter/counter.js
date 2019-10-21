@@ -1,20 +1,19 @@
 import React from 'react';
 import './counter.css';
+import { START_TIME } from './../constants';
 
 class Counter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             timerOn: false,
-            timerStart: 60,
-            timerTime: 60 
+            timerStart: START_TIME,
+            timerTime: START_TIME 
         };
     }
     startTimer = () => {
         this.setState({
             timerOn: true
-            // timerTime: this.state.timerTime,
-            // timerStart: this.state.timerTime
         });
         this.timer = setInterval(() => {
             const newTime = this.state.timerTime - 1;
@@ -60,7 +59,7 @@ class Counter extends React.Component {
                 {timerOn === true && timerTime >= 0 && (
                     <button onClick={this.stopTimer}>Stop</button>
                 )}
-                {(timerOn === false || timerTime < 60) &&
+                {(timerOn === false || timerTime < START_TIME) &&
                     (timerStart !== timerTime) && (
                         <button onClick={this.resetTimer}>Reset</button>
                     )}

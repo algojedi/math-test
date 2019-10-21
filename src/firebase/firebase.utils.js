@@ -15,6 +15,7 @@ const config = {
 
 firebase.initializeApp(config);
 
+//userAuth will be the user object returned by Firebase during signin
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
@@ -22,6 +23,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
     const snapShot = await userRef.get();
 
+    //create user if none exists
     if (!snapShot.exists) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();

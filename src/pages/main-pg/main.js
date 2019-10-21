@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './main.css';
 import Counter from '../../components/counter/counter';
-import { ADDRCONFIG } from 'dns';
+import { EASY } from '../../components/constants'
 
 class Main extends Component {
     
@@ -14,8 +14,8 @@ class Main extends Component {
                         gameEnded: false,
                         attempted: 0,
                         score: 0,
-                        topNum: Math.floor(Math.random() * 50 + 1),
-                        bottomNum : Math.floor(Math.random() * 50 + 1)  };
+                        topNum: Math.floor(Math.random() * EASY + 1),
+                        bottomNum : Math.floor(Math.random() * EASY + 1)  };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -44,8 +44,8 @@ class Main extends Component {
         this.setState({ attempted: this.state.attempted + 1,
                         score: newScore,
                         input: '',
-                        topNum: Math.floor(Math.random() * 50 + 1),
-                        bottomNum: Math.floor(Math.random() * 50 + 1) });
+                        topNum: Math.floor(Math.random() * EASY + 1),
+                        bottomNum: Math.floor(Math.random() * EASY + 1) });
         console.log('current score: ' + this.state.score);
     }
 

@@ -1,15 +1,13 @@
 import React from 'react';
-
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
-
 import './sign-up.styles.scss';
+import { withRouter } from 'react-router-dom';
 
 class SignUp extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       displayName: '',
@@ -35,6 +33,7 @@ class SignUp extends React.Component {
         password
       );
 
+      //createUserPD returns user reference!
       await createUserProfileDocument(user, { displayName });
 
       this.setState({
@@ -43,6 +42,7 @@ class SignUp extends React.Component {
         password: '',
         confirmPassword: ''
       });
+      this.props.history.push('/');
     } catch (error) {
       console.error(error);
     }
@@ -50,7 +50,6 @@ class SignUp extends React.Component {
 
   handleChange = event => {
     const { name, value } = event.target;
-
     this.setState({ [name]: value });
   };
 
@@ -100,4 +99,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);

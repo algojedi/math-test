@@ -1,10 +1,8 @@
 import React from 'react';
-
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
 import { signInWithGoogle } from '../../firebase/firebase.utils';
-
+import { withRouter } from 'react-router-dom';
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -19,8 +17,9 @@ class SignIn extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
     this.setState({ email: '', password: '' });
+    //TODO: must validate credentials against firebase
+    this.props.history.push('/');
   };
 
   handleChange = event => {
@@ -64,4 +63,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);
