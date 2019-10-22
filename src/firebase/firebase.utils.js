@@ -18,9 +18,7 @@ firebase.initializeApp(config);
 //userAuth will be the user object returned by Firebase during signin
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
-
     const userRef = firestore.doc(`users/${userAuth.uid}`);
-
     const snapShot = await userRef.get();
 
     //create user if none exists
@@ -38,9 +36,31 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
             console.log('error creating user', error.message);
         }
     }
-
     return userRef;
 };
+
+export const recordScore = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+
+    const { email } = userAuth;
+    const { score, attempted } = additionalData;
+    const createdAt = new Date();
+    try {
+        
+        firestore.collection('scores').doc(userAuth.uid)
+            .collection('history').doc(createdAt.getTime().toString()).set({
+            email,
+            createdAt,
+            score,
+            attempted
+        })
+        
+    } catch (error) {
+        console.log('error entering score', error.message);
+      }
+    //return userRef;
+};
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

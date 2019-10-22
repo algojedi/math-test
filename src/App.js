@@ -25,7 +25,7 @@ class App extends React.Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-
+        //snapshot has all the important user information
         userRef.onSnapshot(snapShot => {
           this.setState({
             currentUser: {
@@ -37,8 +37,7 @@ class App extends React.Component {
           console.log(this.state);
         });
       }
-
-      this.setState({ currentUser: userAuth });
+      this.setState({ currentUser: userAuth });  //sets user to null when signing out
     });
   }
   

@@ -33,8 +33,8 @@ class SignUp extends React.Component {
         password
       );
 
-      //createUserPD returns user reference!
-      await createUserProfileDocument(user, { displayName });
+      //createUserPD returns user reference.
+      const newUser = await createUserProfileDocument(user, { displayName });
 
       this.setState({
         displayName: '',

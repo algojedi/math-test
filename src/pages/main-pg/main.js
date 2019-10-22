@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './main.css';
 import Counter from '../../components/counter/counter';
 import { EASY } from '../../components/constants'
+import { auth, recordScore, firestore } from '../../firebase/firebase.utils';
 
 class Main extends Component {
     
@@ -18,6 +19,7 @@ class Main extends Component {
                         bottomNum : Math.floor(Math.random() * EASY + 1)  };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.timeOver = this.timeOver.bind(this);
     }
     
     handleClick(e) {
@@ -57,12 +59,33 @@ class Main extends Component {
         if (e.keyCode === 13) this.handleClick(e);
     }
 
-    timeOver = () => {
+    async timeOver() {
         const { score, attempted } = this.state;
         console.log(`final score is ${score} out of ${attempted}`);
         this.setState({ gameEnded: true });
+        const user = auth.currentUser;
+        const snapshot = await firestore.collection(`/scores/${user.uid}/history`).get();
+        //DO SOMETHING WITH SNAPSHOT INFO
+        console.log( snapshot.docs.map(doc => doc.data()) );
+        setTimeout(() => { recordScore(user, { score, attempted } )}, 500);
+
+    }
+
+    //a function that gets called when counter is reset
+    newCounter = () => {
+        this.setState({ gameEnded: false });
     }
     render() { 
+        const user = auth.currentUser;
+        let name; let email; let uid;
+        if (user != null) {
+            name = user.displayName;
+            email = user.email;
+            uid = user.uid;  
+            console.log('user info');
+            console.log(name, email, uid);
+        }
+        
         
         const { topNum, bottomNum, score, attempted } = this.state;
         let endMsg = `final score is ${score} out of ${attempted}: ${(score*100/attempted).toFixed(1)}%`;
@@ -70,7 +93,7 @@ class Main extends Component {
         
         <div id='q-container'>
         
-                <Counter timeEnd={this.timeOver}/>
+                <Counter reset={this.newCounter}  timeEnd={this.timeOver}/>
                 <div id = 'top'>{topNum}</div>
                 <div id = 'bottom'>{'+ ' + bottomNum}</div>
                 <div id = 'guess-wrapper'>
