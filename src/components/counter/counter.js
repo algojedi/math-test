@@ -12,6 +12,7 @@ class Counter extends React.Component {
         };
     }
     startTimer = () => {
+        this.props.gameStarted();
         this.setState({
             timerOn: true
         });

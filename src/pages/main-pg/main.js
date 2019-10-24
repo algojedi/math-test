@@ -9,8 +9,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {  input : '',
-                        //correct : false,
-                        //gameStarted: false, 
+                        gameInProgress: false, 
                         operator: 'ADD',
                         gameEnded: false,
                         attempted: 0,
@@ -24,6 +23,7 @@ class Main extends Component {
     
     handleClick(e) {
         e.preventDefault();
+        if (!this.state.gameInProgress) { return };
         let answer;
         switch (this.state.operator) {
             case 'ADD':
@@ -58,22 +58,40 @@ class Main extends Component {
     handleKeyPress = e => {
         if (e.keyCode === 13) this.handleClick(e);
     }
-
+    gameStarted = () => {
+        this.setState({ gameInProgress: true })
+    }
     async timeOver() {
         const { score, attempted } = this.state;
+
         console.log(`final score is ${score} out of ${attempted}`);
-        this.setState({ gameEnded: true });
+        this.setState({ gameEnded: true, gameInProgress : false });
         const user = auth.currentUser;
+        if (!user) { //data does not record unless signed in
+            return;
+        }
         const snapshot = await firestore.collection(`/scores/${user.uid}/history`).get();
         //DO SOMETHING WITH SNAPSHOT INFO
         console.log( snapshot.docs.map(doc => doc.data()) );
-        setTimeout(() => { recordScore(user, { score, attempted } )}, 500);
+        setTimeout(() => { 
+            recordScore(user, { score, attempted } 
+                
+        )}, 500);
 
     }
 
     //a function that gets called when counter is reset
     newCounter = () => {
-        this.setState({ gameEnded: false });
+        this.setState({
+            input: '',
+            gameInProgress: false,
+            operator: 'ADD',
+            gameEnded: false,
+            attempted: 0,
+            score: 0,
+            topNum: Math.floor(Math.random() * EASY + 1),
+            bottomNum: Math.floor(Math.random() * EASY + 1)
+        });
     }
     render() { 
         const user = auth.currentUser;
@@ -93,7 +111,9 @@ class Main extends Component {
         
         <div id='q-container'>
         
-                <Counter reset={this.newCounter}  timeEnd={this.timeOver}/>
+                <Counter    reset={this.newCounter}
+                            gameStarted={this.gameStarted}  
+                            timeEnd={this.timeOver}/>
                 <div id = 'top'>{topNum}</div>
                 <div id = 'bottom'>{'+ ' + bottomNum}</div>
                 <div id = 'guess-wrapper'>
