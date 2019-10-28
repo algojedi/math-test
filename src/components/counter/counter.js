@@ -1,6 +1,7 @@
 import React from 'react';
 import './counter.css';
 import { START_TIME } from './../constants';
+import CustomButton from './../custom-button/custom-button.component'
 
 class Counter extends React.Component {
     constructor(props) {
@@ -56,7 +57,9 @@ class Counter extends React.Component {
         <div>
                 {timerOn === false &&
                     (timerTime === timerStart) && (
-                        <button onClick={this.startTimer}>Start</button>
+                    <CustomButton   onClick={this.startTimer}
+                                    isTimerBtn='true'>Start</CustomButton>
+                        
                     )}
                 {timerOn === true && timerTime >= 0 && (
                     <button onClick={this.stopTimer}>Stop</button>
@@ -72,3 +75,6 @@ class Counter extends React.Component {
 }
  
 export default Counter;
+
+
+// {/* <button onClick={this.startTimer}>Start</button> */ }

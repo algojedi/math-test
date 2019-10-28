@@ -3,7 +3,6 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 import './sign-up.styles.scss';
-import { withRouter } from 'react-router-dom';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -57,15 +56,15 @@ class SignUp extends React.Component {
     const { displayName, email, password, confirmPassword } = this.state;
     return (
       <div className='sign-up'>
-        <h2 className='title'>I do not have a account</h2>
-        <span>Sign up with your email and password</span>
-        <form className='sign-up-form' onSubmit={this.handleSubmit}>
+        <h2 className='title'>Register</h2>
+        <span>Register with your email and password</span>
+        <form onSubmit={this.handleSubmit}>
           <FormInput
             type='text'
             name='displayName'
             value={displayName}
             onChange={this.handleChange}
-            label='Display Name'
+            label='Display Name*'
             required
           />
           <FormInput
@@ -73,7 +72,7 @@ class SignUp extends React.Component {
             name='email'
             value={email}
             onChange={this.handleChange}
-            label='Email'
+            label='Email*'
             required
           />
           <FormInput
@@ -81,7 +80,7 @@ class SignUp extends React.Component {
             name='password'
             value={password}
             onChange={this.handleChange}
-            label='Password'
+            label='Password*'
             required
           />
           <FormInput
@@ -89,7 +88,7 @@ class SignUp extends React.Component {
             name='confirmPassword'
             value={confirmPassword}
             onChange={this.handleChange}
-            label='Confirm Password'
+            label='Confirm Password*'
             required
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
@@ -99,4 +98,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default withRouter(SignUp);
+export default SignUp;

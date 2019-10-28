@@ -2,8 +2,9 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { signInWithGoogle } from '../../firebase/firebase.utils';
-import { withRouter } from 'react-router-dom';
 import './sign-in.styles.scss';
+import { Link } from 'react-router-dom';
+import { ReactComponent as GSvg } from './../../assets/search.svg';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -31,10 +32,10 @@ class SignIn extends React.Component {
   render() {
     return (
       <div className='sign-in'>
-        <h2>I already have an account</h2>
+        <h1>Sign In</h1>
         <span>Sign in with your email and password</span>
 
-        <form onSubmit={this.handleSubmit}>
+        <form className='signin-form' onSubmit={this.handleSubmit}>
           <FormInput
             name='email'
             type='email'
@@ -54,13 +55,22 @@ class SignIn extends React.Component {
           <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
             <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
-              Sign in with Google
+              
+              <GSvg width='30' height='30' />
+                 
             </CustomButton>
           </div>
         </form>
+        
+        <Link style={{ textDecoration: 'none' }} to='/signup'>
+          <p>
+            No Account Yet? Register Now
+          </p>
+        </Link>
+
       </div>
     );
   }
 }
 
-export default withRouter(SignIn);
+export default SignIn;

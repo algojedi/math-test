@@ -3,11 +3,9 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom'
 import Main from './pages/main-pg/main'
 import Header from './components/header/header.component'
+import SignIn from './components/sign-in/sign-in.component'
+import SignUp from './components/sign-up/sign-up.component'
 
-//import Register from './components/register/register'
-//import ProtectedRoute from './components/protected-route'
-
-import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends React.Component {
@@ -47,11 +45,13 @@ class App extends React.Component {
   
   render() {
     return (
-      <div>
+      <div className='App'>
         <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path='/' component={Main} />
-          <Route path='/signin' component={SignInAndSignUpPage} />
+          {/* <Route path='/signin' component={SignInAndSignUpPage} /> */}
+          <Route path='/signin' component={SignIn} />
+          <Route path='/signup' component={SignUp} />
         </Switch>
       </div>
     );

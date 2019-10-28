@@ -13,20 +13,25 @@
   font-weight: bolder;
   border: none;
   cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
 
+  &.google-sign-in {
+    // background-color: black;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.timer-btn {
+    // background-color: black;
+    color: white;
+    background-color: green;
+  }
   &:hover {
     background-color: white;
     color: black;
     border: 1px solid black;
-  }
-
-  &.google-sign-in {
-    background-color: #4285f4;
-    color: white;
-
-    &:hover {
-      background-color: #357ae8;
-      border: none;
-    }
   }
 }
