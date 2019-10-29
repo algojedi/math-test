@@ -3,7 +3,6 @@
     margin: auto;
     display: flex;
     justify-content: space-between;
-    outline: 1px solid green;
 }
 
 #top, #bottom {
@@ -20,11 +19,9 @@ input {
 }
 
 #question-wrapper {
-    outline: 1px dotted blueviolet;
     width: 35%;
 }
 #counter-wrapper {
-    outline: 1px dashed orangered;
     width: 65%;
 }
 

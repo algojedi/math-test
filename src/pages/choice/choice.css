@@ -1,0 +1,12 @@
+#choice-wrapper {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+#choice-wrapper > * {
+    margin: 15px;
+}

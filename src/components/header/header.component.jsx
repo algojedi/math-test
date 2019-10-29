@@ -8,7 +8,7 @@ import './header.styles.scss';
 
 const Header = ({ currentUser }) => (
   <div className='header'>
-    <Link className='add-here' to='/'>
+    <Link className='add-here' to='/selection'>
       Math Test
     </Link>
     <div className='options'>
@@ -21,7 +21,7 @@ const Header = ({ currentUser }) => (
           SIGN OUT
         </div>
       ) : (
-        <Link className='option' to='/signin'>
+        <Link className='option' to='/'>
           SIGN IN
         </Link>
       )}

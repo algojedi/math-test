@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom'
-import Main from './pages/main-pg/main'
+import MainControl from './pages/main-control/main-control';
 import Header from './components/header/header.component'
 import SignIn from './components/sign-in/sign-in.component'
 import SignUp from './components/sign-up/sign-up.component'
-import Choice from './pages/choice/choice';
+
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
@@ -49,11 +49,9 @@ class App extends React.Component {
       <div className='App'>
         <Header currentUser={this.state.currentUser} />
         <Switch>
-          <Route exact path='/' component={Main} />
-          {/* <Route path='/signin' component={SignInAndSignUpPage} /> */}
-          <Route path='/signin' component={SignIn} />
+          <Route exact path='/' component={SignIn} />
+          <Route path='/main' component={MainControl} />
           <Route path='/signup' component={SignUp} />
-          <Route path='/selection' component={Choice} />
         </Switch>
       </div>
     );

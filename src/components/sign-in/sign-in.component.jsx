@@ -20,7 +20,7 @@ class SignIn extends React.Component {
     event.preventDefault();
     this.setState({ email: '', password: '' });
     //TODO: must validate credentials against firebase
-    this.props.history.push('/');
+    this.props.history.push('/selection');
   };
 
   handleChange = event => {
