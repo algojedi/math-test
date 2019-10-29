@@ -25,9 +25,16 @@
   }
 
   &.timer-btn {
-    // background-color: black;
     color: white;
     background-color: green;
+  }
+  &.stop-btn {
+    color: white;
+    background-color: red;
+  }
+  &.reset-btn {
+    color: white;
+    background-color: #2243B6;
   }
   &:hover {
     background-color: white;

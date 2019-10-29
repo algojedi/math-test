@@ -111,23 +111,28 @@ class Main extends Component {
         
         <div id='q-container'>
         
-                <Counter    reset={this.newCounter}
-                            gameStarted={this.gameStarted}  
-                            timeEnd={this.timeOver}/>
-                <div id = 'top'>{topNum}</div>
-                <div id = 'bottom'>{'+ ' + bottomNum}</div>
-                <div id = 'guess-wrapper'>
-                    <input  id='guess'
-                            ref={input => input && input.focus()} 
-                            value={this.state.input}
-                            onChange={this.handleChange}
-                            onKeyDown={this.handleKeyPress}
-                            ></input>
-                    <button id='answer-btn'
-                            onClick = {this.handleClick}>submit</button>
+                <div id="counter-wrapper">
+                    <Counter    reset={this.newCounter}
+                                gameStarted={this.gameStarted}  
+                                timeEnd={this.timeOver}/>
                 </div>
-                <div id='game-end-message'>{this.state.gameEnded ? 
-                endMsg : ''}</div>
+
+                <div id="question-wrapper">
+                    <div id = 'top'>{topNum}</div>
+                    <div id = 'bottom'>{'+ ' + bottomNum}</div>
+                    <div id = 'guess-wrapper'>
+                        <input  id='guess'
+                                ref={input => input && input.focus()} 
+                                value={this.state.input}
+                                onChange={this.handleChange}
+                                onKeyDown={this.handleKeyPress}
+                                ></input>
+                        <button id='answer-btn'
+                                onClick = {this.handleClick}>submit</button>
+                    </div>
+                    <div id='game-end-message'>{this.state.gameEnded ? 
+                    endMsg : ''}</div>
+                </div>
         </div> );
     }
 }

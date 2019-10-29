@@ -5,6 +5,7 @@ import Main from './pages/main-pg/main'
 import Header from './components/header/header.component'
 import SignIn from './components/sign-in/sign-in.component'
 import SignUp from './components/sign-up/sign-up.component'
+import Choice from './pages/choice/choice';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
@@ -52,6 +53,7 @@ class App extends React.Component {
           {/* <Route path='/signin' component={SignInAndSignUpPage} /> */}
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
+          <Route path='/selection' component={Choice} />
         </Switch>
       </div>
     );
