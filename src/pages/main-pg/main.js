@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './main.css';
 import Counter from '../../components/counter/counter';
-import { EASY } from '../../components/constants'
+import { EASY, MULT, DIVIDE, ADD, SUBTRACT } from '../../components/constants'
 import { auth, recordScore, firestore } from '../../firebase/firebase.utils';
 
 class Main extends Component {
@@ -10,7 +10,7 @@ class Main extends Component {
         super(props);
         this.state = {  input : '',
                         gameInProgress: false, 
-                        operator: 'ADD',
+                        operator: props.operator,
                         gameEnded: false,
                         attempted: 0,
                         score: 0,
@@ -26,16 +26,16 @@ class Main extends Component {
         if (!this.state.gameInProgress) { return };
         let answer;
         switch (this.state.operator) {
-            case 'ADD':
+            case ADD:
                 answer = this.state.topNum + this.state.bottomNum;
                 break;
-            case 'DIVIDE':
+            case DIVIDE:
                 answer = this.state.topNum / this.state.bottomNum;
                 break;
-            case 'SUBTRACT':
+            case SUBTRACT:
                 answer = this.state.topNum - this.state.bottomNum;
                 break;
-            case 'MULT':
+            case MULT:
                 answer = this.state.topNum * this.state.bottomNum;
                 break;
             default:
@@ -94,6 +94,7 @@ class Main extends Component {
         });
     }
     render() { 
+        console.log('and the operator in main render is ', this.state.operator);
         const user = auth.currentUser;
         let name; let email; let uid;
         if (user != null) {

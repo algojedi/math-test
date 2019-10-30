@@ -1,25 +1,26 @@
 import React from 'react';
 import CustomButton from './../../components/custom-button/custom-button.component';
 import './choice.css';
+import { ADD, SUBTRACT, MIXED } from './../../components/constants'
 
-const Choice = () => {
+const Choice = ({ selected }) => {
+    const sendSelection = selection => {
+        selected(selection);
+    }
     return ( 
         
            
             <div id="choice-wrapper">
-                <CustomButton>
+                <CustomButton onClick={() => sendSelection(ADD) }>
                     Addition
                 </CustomButton>
-                <CustomButton>
+                <CustomButton onClick={() => sendSelection(SUBTRACT)}>
                     Subtraction
                 </CustomButton>
-                <CustomButton>
+                <CustomButton onClick={() => sendSelection(MIXED)}>
                     Mixed
                 </CustomButton>
             </div>
-
-      
-
 
      );
 }
