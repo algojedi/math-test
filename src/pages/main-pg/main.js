@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import './main.css';
 import Counter from '../../components/counter/counter';
-import { EASY, MULT, DIVIDE, ADD, SUBTRACT } from '../../components/constants'
+import { EASY, MULTIPLY, DIVIDE, ADD, SUBTRACT } from '../../components/constants'
 import { auth, recordScore, firestore } from '../../firebase/firebase.utils';
 
 class Main extends Component {
     
     constructor(props) {
         super(props);
+        const topNumber = this.calcTopNum();
         this.state = {  input : '',
                         gameInProgress: false, 
                         operator: props.operator,
                         gameEnded: false,
                         attempted: 0,
                         score: 0,
-                        topNum: Math.floor(Math.random() * EASY + 1),
-                        bottomNum : Math.floor(Math.random() * EASY + 1)  };
+                        topNum: topNumber,
+                        bottomNum: props.operator === SUBTRACT ?
+                            Math.floor(Math.random() * topNumber + 1) :
+                            Math.floor(Math.random() * EASY + 1) };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.timeOver = this.timeOver.bind(this);
@@ -35,7 +38,7 @@ class Main extends Component {
             case SUBTRACT:
                 answer = this.state.topNum - this.state.bottomNum;
                 break;
-            case MULT:
+            case MULTIPLY:
                 answer = this.state.topNum * this.state.bottomNum;
                 break;
             default:
@@ -43,14 +46,23 @@ class Main extends Component {
         }
         let newScore = answer === Number(this.state.input) ? this.state.score + 1 : this.state.score;
         
+        const topNumber = this.calcTopNum();
         this.setState({ attempted: this.state.attempted + 1,
                         score: newScore,
                         input: '',
-                        topNum: Math.floor(Math.random() * EASY + 1),
-                        bottomNum: Math.floor(Math.random() * EASY + 1) });
+                        topNum: topNumber,
+                        bottomNum: this.calcBottomNum(topNumber) });
         console.log('current score: ' + this.state.score);
     }
-
+    calcTopNum() {
+        return Math.floor(Math.random() * EASY + 1);
+    }
+    calcBottomNum(tn) {
+        //ensure result is not a negative number by comparing to top number tn
+        return this.state.operator === SUBTRACT ?
+            Math.floor(Math.random() * tn + 1) :
+            Math.floor(Math.random() * EASY + 1);
+    }
     handleChange(e) {
         this.setState({ input : e.target.value})
     }
@@ -82,25 +94,27 @@ class Main extends Component {
 
     //a function that gets called when counter is reset
     newCounter = () => {
+        const topNumber = this.calcTopNum();
         this.setState({
             input: '',
             gameInProgress: false,
-            operator: 'ADD',
+            //operator: 'ADD',
             gameEnded: false,
             attempted: 0,
             score: 0,
-            topNum: Math.floor(Math.random() * EASY + 1),
-            bottomNum: Math.floor(Math.random() * EASY + 1)
+            topNum: topNumber,
+            bottomNum: this.calcBottomNum(topNumber)
         });
     }
     render() { 
         console.log('and the operator in main render is ', this.state.operator);
         const user = auth.currentUser;
-        let name; let email; let uid;
+        //let name; let email; let uid;
         if (user != null) {
-            name = user.displayName;
-            email = user.email;
-            uid = user.uid;  
+            // name = user.displayName;
+            // email = user.email;
+            // uid = user.uid;  
+            const { name, email, uid } = user;
             console.log('user info');
             console.log(name, email, uid);
         }
@@ -120,7 +134,7 @@ class Main extends Component {
 
                 <div id="question-wrapper">
                     <div id = 'top'>{topNum}</div>
-                    <div id = 'bottom'>{'+ ' + bottomNum}</div>
+                    <div id = 'bottom'>{this.state.operator + ' ' + bottomNum}</div>
                     <div id = 'guess-wrapper'>
                         <input  id='guess'
                                 ref={input => input && input.focus()} 
