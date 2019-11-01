@@ -28,7 +28,7 @@ class MainControl extends Component {
             <div>
                 {this.state.opSelectionMade ? 
                     this.state.levelSelectionMade ? 
-                    <Main operator={this.state.operator} /> : 
+                    <Main operator={this.state.operator} level={this.state.level}/> : 
                     <Level selected={this.levelSelected} /> :
                     <Choice selected={this.opSelected} />
                 }
