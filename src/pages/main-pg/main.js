@@ -52,7 +52,9 @@ class Main extends Component {
                         input: '',
                         topNum: topNumber,
                         bottomNum: this.calcBottomNum(topNumber) });
-        console.log('current score: ' + this.state.score);
+
+        //check running score
+        setTimeout(() => { console.log('current score: ' + this.state.score); }, 500);
     }
     calcTopNum() {
         return Math.floor(Math.random() * EASY + 1);

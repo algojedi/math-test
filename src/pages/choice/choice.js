@@ -11,20 +11,20 @@ const Choice = ({ selected }) => {
         
            
             <div id="choice-wrapper">
-                <CustomButton onClick={() => sendSelection(ADD) }>
+                <CustomButton large={true} onClick={() => sendSelection(ADD) }>
                     Addition
                 </CustomButton>
-                <CustomButton onClick={() => sendSelection(SUBTRACT)}>
+                <CustomButton large={true} onClick={() => sendSelection(SUBTRACT)}>
                     Subtraction
                 </CustomButton>
-                <CustomButton onClick={() => sendSelection(MIXED)}>
+                <CustomButton large={true} onClick={() => sendSelection(MIXED)}>
                     Mixed
                 </CustomButton>
-                <CustomButton onClick={() => sendSelection(MULTIPLY)}>
+                <CustomButton large={true} onClick={() => sendSelection(MULTIPLY)}>
                     Subtraction
-                    </CustomButton>
-                <CustomButton onClick={() => sendSelection(DIVIDE)}>
-                    Mixed
+                </CustomButton>
+                <CustomButton large={true} onClick={() => sendSelection(DIVIDE)}>
+                    Division
                 </CustomButton>
             </div>
 

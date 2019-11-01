@@ -16,6 +16,9 @@
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 
+  &.lrg-btn {
+    width: 100%;
+  }
   &.google-sign-in {
     // background-color: black;
     color: black;
