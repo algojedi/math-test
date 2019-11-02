@@ -3,5 +3,11 @@
   flex-direction: column;
   width: 380px;
   margin: 0 auto;
+  text-align: center;
+
+  @media screen and (max-width: 450px) {
+    width: 300px;
+  } 
+
 }
 
