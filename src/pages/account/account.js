@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Account = ({name, operator, percentage}) => {
+const Account = () => {
     return ( 
         <div>
             <h1>Account Details</h1>
-            <h2>{name}</h2>
+            {/* <h2>{name}</h2> */}
             <table>
                 <row>
                     <th>

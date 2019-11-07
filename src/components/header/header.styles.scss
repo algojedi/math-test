@@ -7,8 +7,15 @@
   align-items: center;
   padding: 50px;
   
-  .option {
-    text-decoration: none;
-    cursor: pointer;
+  .signedIn-options {
+
+  
+    .option {
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .account-link {
+
+    }
   }
 }

@@ -5,6 +5,8 @@ import { signInWithGoogle } from '../../firebase/firebase.utils';
 import './sign-in.styles.scss';
 import { Link } from 'react-router-dom';
 import { ReactComponent as GSvg } from './../../assets/search.svg';
+import { auth, signInWithEmailAndPassword } from '../../firebase/firebase.utils';
+
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -16,16 +18,24 @@ class SignIn extends React.Component {
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ email: '', password: '' });
+    const { email, password } = this.state;
+    console.log('trying to log in w. ', email, password);
+    
     //TODO: must validate credentials against firebase
-    this.props.history.push('/selection');
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({ email: '', password: '' });
+      this.props.history.push('/selection');
+      console.log('user logged in and authenticated');
+    } catch(err) {
+        console.log(err);
+    }
   };
 
   handleChange = event => {
     const { value, name } = event.target;
-
     this.setState({ [name]: value });
   };
 
