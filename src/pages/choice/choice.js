@@ -3,7 +3,7 @@ import CustomButton from './../../components/custom-button/custom-button.compone
 import './choice.css';
 import { ADD, SUBTRACT, MULTIPLY, DIVIDE } from './../../components/constants'
 
-const Choice = ({ selected }) => {
+const OperatorChoice = ({ selected }) => {
     const sendSelection = selection => {
         selected(selection);
     }
@@ -27,4 +27,4 @@ const Choice = ({ selected }) => {
      );
 }
  
-export default Choice;
+export default OperatorChoice;

@@ -8,14 +8,12 @@
   padding: 50px;
   
   .signedIn-options {
-
-  
-    .option {
+    display: flex;
+    width: 150px;
+    justify-content: space-evenly;
+  }
+}
+.option {
       text-decoration: none;
       cursor: pointer;
-    }
-    .account-link {
-
-    }
-  }
 }

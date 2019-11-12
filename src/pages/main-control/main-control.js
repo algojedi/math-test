@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Choice from './../choice/choice';
+import OperatorChoice from './../choice/choice';
 import Level from './../level/level';
 import Main from './../main-pg/main';
 import { ADD, EASY } from './../../components/constants';
@@ -30,7 +30,7 @@ class MainControl extends Component {
                     this.state.levelSelectionMade ? 
                     <Main operator={this.state.operator} level={this.state.level}/> : 
                     <Level selected={this.levelSelected} /> :
-                    <Choice selected={this.opSelected} />
+                    <OperatorChoice selected={this.opSelected} />
                 }
             </div>
          );

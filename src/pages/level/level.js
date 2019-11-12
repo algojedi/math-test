@@ -4,6 +4,7 @@ import './level.css';
 import { EASY, MEDIUM, HARD } from './../../components/constants'
 
 const Level = ({ selected }) => {
+    
     const sendSelection = selection => {
         selected(selection);
     }

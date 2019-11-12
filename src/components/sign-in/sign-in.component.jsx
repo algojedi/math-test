@@ -5,7 +5,7 @@ import { signInWithGoogle } from '../../firebase/firebase.utils';
 import './sign-in.styles.scss';
 import { Link } from 'react-router-dom';
 import { ReactComponent as GSvg } from './../../assets/search.svg';
-import { auth, signInWithEmailAndPassword } from '../../firebase/firebase.utils';
+import { auth } from '../../firebase/firebase.utils';
 
 
 class SignIn extends React.Component {
@@ -27,7 +27,7 @@ class SignIn extends React.Component {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       this.setState({ email: '', password: '' });
-      this.props.history.push('/selection');
+      this.props.history.push('/main');
       console.log('user logged in and authenticated');
     } catch(err) {
         console.log(err);

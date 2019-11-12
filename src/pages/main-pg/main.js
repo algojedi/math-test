@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './main.css';
 import Counter from '../../components/counter/counter';
 import { MULTIPLY, DIVIDE, ADD, SUBTRACT } from '../../components/constants'
-import { auth, recordScore, firestore } from '../../firebase/firebase.utils';
+import { auth, recordScore } from '../../firebase/firebase.utils';
 
 class Main extends Component {
     
@@ -55,7 +55,7 @@ class Main extends Component {
                         bottomNum: this.calcBottomNum(topNumber) });
 
         //check running score
-        setTimeout(() => { console.log('current score: ' + this.state.score); }, 500);
+        //setTimeout(() => { console.log('current score: ' + this.state.score); }, 500);
     }
     calcTopNum() {
         return Math.floor(Math.random() * this.props.level + 1);
@@ -85,9 +85,7 @@ class Main extends Component {
         if (!user) { //data does not record unless signed in
             return;
         }
-        const snapshot = await firestore.collection(`/scores/${user.uid}/history`).get();
-        //DO SOMETHING WITH SNAPSHOT INFO
-        console.log( snapshot.docs.map(doc => doc.data()) );
+        
         setTimeout(() => { 
             recordScore(user, { score, attempted } 
                 
@@ -110,18 +108,6 @@ class Main extends Component {
         });
     }
     render() { 
-        console.log('and the operator in main render is ', this.state.operator);
-        const user = auth.currentUser;
-        //let name; let email; let uid;
-        if (user != null) {
-            // name = user.displayName;
-            // email = user.email;
-            // uid = user.uid;  
-            const { name, email, uid } = user;
-            console.log('user info');
-            console.log(name, email, uid);
-        }
-        
         
         const { topNum, bottomNum, score, attempted } = this.state;
         let endMsg = `final score is ${score} out of ${attempted}: ${(score*100/attempted).toFixed(1)}%`;

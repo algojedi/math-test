@@ -42,16 +42,15 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 export const recordScore = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
-    const { email } = userAuth;
+    const { uid } = userAuth;
     const { score, attempted } = additionalData;
     const createdAt = new Date();
     try {
         
-        firestore.collection('scores').doc(userAuth.uid)
+        firestore.collection('scores').doc(uid)
             .collection('history').doc(createdAt.getTime().toString()).set({
-            email,
             createdAt,
-            score,
+            score, 
             attempted
         })
         

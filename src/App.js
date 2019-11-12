@@ -54,6 +54,7 @@ class App extends React.Component {
           <Route path='/main' component={MainControl} />
           <Route path='/signup' component={SignUp} />
           <Route path='/account' component={Account} />
+          
         </Switch>
       </div>
     );
