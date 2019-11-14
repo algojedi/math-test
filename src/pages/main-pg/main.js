@@ -77,17 +77,17 @@ class Main extends Component {
         this.setState({ gameInProgress: true })
     }
     async timeOver() {
-        const { score, attempted } = this.state;
-
+        const { score, attempted, operator } = this.state;
+        const { level } = this.props;
         console.log(`final score is ${score} out of ${attempted}`);
         this.setState({ gameEnded: true, gameInProgress : false });
         const user = auth.currentUser;
-        if (!user) { //data does not record unless signed in
+        if (!user) { //score does not get saved unless signed in
             return;
         }
         
         setTimeout(() => { 
-            recordScore(user, { score, attempted } 
+            recordScore(user, { score, attempted, operator, level } 
                 
         )}, 500);
 

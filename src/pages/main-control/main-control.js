@@ -24,6 +24,7 @@ class MainControl extends Component {
         })
     }
     render() { 
+        
         return ( 
             <div>
                 {this.state.opSelectionMade ? 

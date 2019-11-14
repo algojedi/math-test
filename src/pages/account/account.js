@@ -2,6 +2,7 @@ import React from 'react';
 import { auth, firestore } from '../../firebase/firebase.utils';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import { Link } from 'react-router-dom';
+import './account.css';
 
 class Account extends React.Component {
 
@@ -47,14 +48,23 @@ class Account extends React.Component {
         }
 
         return ( 
-            <div>
+            <div className='account-wrapper'>
                 <Link to='/main'>Back to main page</Link>
                 <h1>Account Details</h1>
                 <p>{email}</p>
                 <p>{'display name: ' + displayName }</p>
-                <p>{uid}</p>
+                
                 <h2>Previous Scores</h2>
-                {this.state.userHistory.length ? this.state.userHistory.map(record => <p>{record.score}</p>) : ''}
+                {this.state.userHistory.length ? this.state.userHistory.map(record => {
+                    console.log('created at type is ', record.createdAt.toDate());
+                     return (
+                        <div>
+                             <p>{record.createdAt.toDate().toString()}</p>
+                            <span>{'Your score was ' + record.score}</span>
+                            <span>{' out of ' + record.attempted + ' attempts'}</span>
+                            
+                        </div>)
+                        }) : ''}
 
                 <CustomButton   isStopBtn={true} 
                                 large={true}
@@ -65,7 +75,7 @@ class Account extends React.Component {
                                         console.log(error);
                                         alert('Please sign out and sign in again. This operation requires recent authentication');
                                     });
-                                }}> DELETE </CustomButton>
+                                }}> DELETE ACCOUNT </CustomButton>
             </div>
         );
     }

@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import MainControl from './pages/main-control/main-control';
+// import SignInOrPlay from './components/signIn-play/signinPlay';
 import Header from './components/header/header.component';
 import SignIn from './components/sign-in/sign-in.component';
 import SignUp from './components/sign-up/sign-up.component';
@@ -50,8 +51,11 @@ class App extends React.Component {
       <div className='App'>
         <Header currentUser={this.state.currentUser} />
         <Switch>
-          <Route exact path='/' component={SignIn} />
+          <Route exact path='/'>
+            {this.state.currentUser ? <Redirect to='/main' /> : < SignIn />}
+          </Route>
           <Route path='/main' component={MainControl} />
+          {/* <Route path='/signin' component={SignIn} /> */}
           <Route path='/signup' component={SignUp} />
           <Route path='/account' component={Account} />
           

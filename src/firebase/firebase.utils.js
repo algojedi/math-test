@@ -43,7 +43,7 @@ export const recordScore = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
     const { uid } = userAuth;
-    const { score, attempted } = additionalData;
+    const { score, attempted, operator, level } = additionalData;
     const createdAt = new Date();
     try {
         
@@ -51,7 +51,9 @@ export const recordScore = async (userAuth, additionalData) => {
             .collection('history').doc(createdAt.getTime().toString()).set({
             createdAt,
             score, 
-            attempted
+            attempted,
+            operator,
+            level
         })
         
     } catch (error) {
