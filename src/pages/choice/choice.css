@@ -9,4 +9,5 @@
 
 #choice-wrapper > * {
     margin: 10px;
+    width: 100%;
 }

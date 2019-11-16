@@ -14,13 +14,15 @@ class SignIn extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      failedLogin: false
     };
   }
 
   handleSubmit = async event => {
     event.preventDefault();
     const { email, password } = this.state;
+    
     console.log('trying to log in w. ', email, password);
     
     //TODO: must validate credentials against firebase
@@ -31,7 +33,11 @@ class SignIn extends React.Component {
       console.log('user logged in and authenticated');
     } catch(err) {
         console.log(err);
+        this.setState({ failedLogin: true });
     }
+    // if (!auth.currentUser) {
+    //   this.setState({ failedLogin: true });
+    // }
   };
 
   handleChange = event => {
@@ -72,7 +78,7 @@ class SignIn extends React.Component {
             </CustomButton>
           </div>
         </form>
-        
+        {this.state.failedLogin ? <div style={{color:'red'}}> Incorrect username or password </div> : '' }
         <Link style={{ textDecoration: 'none' }} to='/signup'>
           <p>
             No Account Yet? Register Now

@@ -49,7 +49,7 @@ class Account extends React.Component {
 
         return ( 
             <div className='account-wrapper'>
-                <Link to='/main'>Back to main page</Link>
+                <Link className='return-link' to='/main'>Return to game</Link>
                 <h1>Account Details</h1>
                 <p>{email}</p>
                 <p>{'display name: ' + displayName }</p>
