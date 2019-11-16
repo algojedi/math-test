@@ -3,6 +3,7 @@ import { auth, firestore } from '../../firebase/firebase.utils';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import { Link } from 'react-router-dom';
 import './account.css';
+import { EASY, MEDIUM, HARD } from '../../components/constants';
 
 class Account extends React.Component {
 
@@ -18,11 +19,13 @@ class Account extends React.Component {
         firestore.collection(`/scores/${auth.currentUser.uid}/history`).get()
             .then(qs => {
                 qs.docs.forEach(record => {
-                    const { attempted, score, createdAt } = record.data();
+                    const { attempted, score, createdAt, operator, level } = record.data();
                     userHistory.push({
                         attempted,
                         score,
-                        createdAt
+                        createdAt,
+                        operator,
+                        level
                     });
                 })
                 this.setState({ userHistory, renderedStats: true });
@@ -31,11 +34,20 @@ class Account extends React.Component {
                 console.log('could not retrieve from database', error);
             })
 
-        setTimeout(() => { console.log('state length: ', this.state.length) }, 500);
+        setTimeout(() => { console.log('state length: ', this.state.userHistory.length) }, 500);
 
 
     }
     
+    convertLevel(levelNumber) {
+        switch (levelNumber) {
+            case EASY: return 'Easy';
+            case MEDIUM: return 'Medium';
+            case HARD: return 'Hard';
+            default:
+                return 'unrecognized level';
+        }
+    }
     render() {
         if (!auth.currentUser) {
             return (<div> Please sign in</div>);
@@ -52,22 +64,37 @@ class Account extends React.Component {
                 <Link className='return-link' to='/main'>Return to game</Link>
                 <h1>Account Details</h1>
                 <p>{email}</p>
-                <p>{'display name: ' + displayName }</p>
+                <p>{displayName ? `display name: ${displayName}` : '' }</p>
                 
+
                 <h2>Previous Scores</h2>
+                <table className='scores-table'><tbody className='table-wrapper'>
+                    <tr>
+                        <th>Time</th>
+                        <th>Score</th>
+                        <th>Attempts</th>
+                        <th>Operator</th>
+                        <th>Difficulty</th>
+                    </tr>
                 {this.state.userHistory.length ? this.state.userHistory.map(record => {
-                    console.log('created at type is ', record.createdAt.toDate());
-                     return (
-                        <div>
-                             <p>{record.createdAt.toDate().toString()}</p>
-                            <span>{'Your score was ' + record.score}</span>
-                            <span>{' out of ' + record.attempted + ' attempts'}</span>
-                            
-                        </div>)
-                        }) : ''}
+                    console.log('recod is ', record);
+                    return (
+                        <>
+                            <tr>
+                                <td>{record.createdAt.toDate().toString()}</td>
+                                <td>{record.score}</td>
+                                <td>{record.attempted}</td>
+                                <td>{record.operator}</td>
+                                <td>{this.convertLevel(record.level)}</td>
+                            </tr>
+                        </>)
+                }) : ''}
+                    
+                </tbody></table>
 
                 <CustomButton   isStopBtn={true} 
                                 large={true}
+                                className='delete-btn'
                                 onClick={() => {
                                     user.delete().then(function () {
                                         // User deleted.
@@ -75,7 +102,8 @@ class Account extends React.Component {
                                         console.log(error);
                                         alert('Please sign out and sign in again. This operation requires recent authentication');
                                     });
-                                }}> DELETE ACCOUNT </CustomButton>
+                                }}> DELETE ACCOUNT 
+                </CustomButton>
             </div>
         );
     }

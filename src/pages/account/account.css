@@ -3,8 +3,20 @@
     margin: 10px auto;
     text-align: center;
     position: relative;
-    outline: 1px solid green;
-    
+}
+.scores-table {
+    width: 100%;
+}
+th {
+    background-color: rgba(198,199,196, .5);
+    color: rgb(97, 83, 4);
+}
+.table-wrapper:nth-child(odd) {
+    background-color: #eef0f2;
+}
+
+.delete-btn {
+    margin-top: 200px;
 }
 
 .return-link {

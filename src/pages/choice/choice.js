@@ -32,11 +32,13 @@ const OperatorChoice = ({ selected }) => {
                         Multiplication
                     </CustomButton>
                 </animated.div>
-                <animated.div style={slideIn}>
+
+                {/* <animated.div style={slideIn}>
                     <CustomButton large={true} onClick={() => selected(DIVIDE)}>
                         Division
                     </CustomButton>
-                </animated.div>
+                </animated.div> */}
+                
             </div>
 
      );

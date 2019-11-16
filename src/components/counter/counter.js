@@ -65,11 +65,11 @@ class Counter extends React.Component {
                     <CustomButton   onClick={this.stopTimer}
                                     isStopBtn='true'>Stop</CustomButton>
                 )}
-                {(timerOn === false || timerTime < START_TIME) &&
-                    (timerStart !== timerTime) && (
+                {timerOn === false  && timerStart !== timerTime && (
                     <CustomButton   onClick={this.resetTimer}
                                     isResetBtn='true'>Reset</CustomButton>
                     )}
+                
                 <h1> {timerTime} </h1>
 
             </React.Fragment> );

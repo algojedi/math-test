@@ -18,6 +18,7 @@ class Main extends Component {
                         //level: props.level,
                         topNum: topNumber,
                         bottomNum: props.operator === SUBTRACT ?
+                            //need to ensure bottomNum < topNum for subtraction
                             Math.floor(Math.random() * topNumber + 1) :
                             Math.floor(Math.random() * props.level + 1) };
         this.handleClick = this.handleClick.bind(this);
@@ -33,9 +34,9 @@ class Main extends Component {
             case ADD:
                 answer = this.state.topNum + this.state.bottomNum;
                 break;
-            case DIVIDE:
-                answer = this.state.topNum / this.state.bottomNum;
-                break;
+            // case DIVIDE:
+            //     answer = this.state.topNum / this.state.bottomNum;
+            //     break;
             case SUBTRACT:
                 answer = this.state.topNum - this.state.bottomNum;
                 break;
