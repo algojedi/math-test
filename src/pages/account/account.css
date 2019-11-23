@@ -20,8 +20,8 @@ th {
 }
 
 .return-link {
-    position: fixed;
-    top: 0px;
-    left: 50px;
+    position: absolute;
+    left: 40px;
+    top: -25px;
     display: inline-block;
 }

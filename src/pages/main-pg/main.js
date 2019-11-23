@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './main.css';
 import Counter from '../../components/counter/counter';
-import { MULTIPLY, DIVIDE, ADD, SUBTRACT } from '../../components/constants'
+import { MULTIPLY, ADD, SUBTRACT } from '../../components/constants'
 import { auth, recordScore } from '../../firebase/firebase.utils';
 
 class Main extends Component {

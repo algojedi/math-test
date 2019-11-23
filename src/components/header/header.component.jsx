@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import appLogo from './../../assets/micon.jpg';
 import { auth } from '../../firebase/firebase.utils';
-
-
 import './header.styles.scss';
 
 const Header = ({ currentUser }) => (
@@ -32,7 +30,7 @@ const Header = ({ currentUser }) => (
           SIGN OUT
         </div>
         <Link className='option' to='/account'>
-          <i className="fa fa-user-circle-o"></i>
+          <i className="fa fa-user-circle-o">Account</i>
         </Link>
       </div>
     ) : (
