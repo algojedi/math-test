@@ -54,7 +54,7 @@ class Counter extends React.Component {
         const { timerStart, timerOn, timerTime } = this.state;
         
         return ( 
-            <React.Fragment>
+            <div className='timer-container'>
                 {timerOn === false &&
                     (timerTime === timerStart) && (
                     <CustomButton   onClick={this.startTimer}
@@ -72,7 +72,7 @@ class Counter extends React.Component {
                 
                 <h1> {timerTime} </h1>
 
-            </React.Fragment> );
+            </div> );
     }
 }
  

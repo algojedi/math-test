@@ -12,7 +12,6 @@ class Account extends React.Component {
         this.state = { userHistory : [], renderedStats : false };
     }
 
-
     fetchHistory = () => {
         const userHistory = [];
 
@@ -33,10 +32,6 @@ class Account extends React.Component {
             .catch(error => {
                 console.log('could not retrieve from database', error);
             })
-
-        //setTimeout(() => { console.log('state length: ', this.state.userHistory.length) }, 500);
-
-
     }
     
     convertLevel(levelNumber) {
@@ -48,12 +43,19 @@ class Account extends React.Component {
                 return 'unrecognized level';
         }
     }
-    // dateParser(date) {
-    //     return `${date.getMonth()}-${date.getDate()} - ${date.get()`;
-    // }
+    opTranslate(operation) {
+        //console.log("x" == operation);
+        switch (operation) {
+            case "\u002B": return 'Addition';
+            case "\u2212": return 'Subtraction';
+            case "\u00D7": return 'Multiplication';
+            default:
+                return 'unrecognized operation';
+        }
+    }
     render() {
         if (!auth.currentUser) {
-            return (<div> Please sign in</div>);
+            return (<div className='please-sign-in'> Please sign in to view account</div>);
         }
         const user = auth.currentUser;
         const { email, displayName, uid } = user;
@@ -65,25 +67,26 @@ class Account extends React.Component {
         return ( 
             <div className='account-wrapper'>
                 <Link className='return-link' to='/main'>
-                    <i class="fa fa-arrow-circle-left" style={{ fontSize: 24 }}></i>
+                    <i className="fa fa-arrow-circle-left" style={{ fontSize: 24 }}></i>
                 </Link>
                 <h1>Account Details</h1>
-                <p>{email}</p>
-                <p>{displayName ? `display name: ${displayName}` : '' }</p>
+                <p>{'Email: ' + email}</p>
+                <p>{displayName ? `Display Name: ${displayName}` : '' }</p>
                 
 
                 <h2>Previous Scores</h2>
                 <table className='scores-table'><tbody className='table-wrapper'>
                     <tr>
-                        <th>Time</th>
+                        <th>Date</th>
                         <th>Score</th>
                         <th>Attempts</th>
-                        <th>Operator</th>
+                        <th>% Score</th>
+                        <th>Operation</th>
                         <th>Difficulty</th>
                     </tr>
 
-                {/* reverse userHistory in order properly populate table */}
-                {this.state.userHistory.length ? this.state.userHistory.map(record => {
+                {/* reverse userHistory in order populate table w most recent on top*/}
+                {this.state.userHistory.length ? this.state.userHistory.reverse().map(record => {
                     console.log('recod is ', record);
                     return (
                         <>
@@ -91,7 +94,8 @@ class Account extends React.Component {
                                 <td>{record.createdAt.toDate().toDateString()}</td>
                                 <td>{record.score}</td>
                                 <td>{record.attempted}</td>
-                                <td>{record.operator}</td>
+                                <td>{(record.score*100 / record.attempted).toFixed(2)}</td>
+                                <td>{this.opTranslate(record.operator)}</td>
                                 <td>{this.convertLevel(record.level)}</td>
                             </tr>
                         </>)

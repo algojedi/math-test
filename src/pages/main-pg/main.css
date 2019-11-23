@@ -3,6 +3,15 @@
     margin: auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 50vh;
+}
+@media screen and (max-width: 500px) {
+    #q-container {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
 }
 
 #top, #bottom {
@@ -29,3 +38,22 @@ input {
     display: flex;
     flex-direction: column;
 }
+#answer-btn {
+    background-color: black;
+    margin-top: 10px;
+    color: white;
+    height: 50px;
+    letter-spacing: 0.5px;
+    font-family: helvetica, sans-serif;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+#answer-btn:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    
+  }

@@ -3,6 +3,7 @@ import './main.css';
 import Counter from '../../components/counter/counter';
 import { MULTIPLY, ADD, SUBTRACT } from '../../components/constants'
 import { auth, recordScore } from '../../firebase/firebase.utils';
+import CustomButton from '../../components/custom-button/custom-button.component';
 
 class Main extends Component {
     
@@ -133,7 +134,8 @@ class Main extends Component {
                                 onKeyDown={this.handleKeyPress}
                                 ></input>
                         <button id='answer-btn'
-                                onClick = {this.handleClick}>submit</button>
+                                onClick = {this.handleClick}>Submit</button>
+
                     </div>
                     <div id='game-end-message'>{this.state.gameEnded ? 
                     endMsg : ''}</div>

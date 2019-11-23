@@ -4,6 +4,12 @@
     text-align: center;
     position: relative;
 }
+.please-sign-in {
+    text-align: center;
+    font-size: larger;
+    font-weight: bolder;
+    margin: 15px;
+}
 .scores-table {
     width: 100%;
 }
