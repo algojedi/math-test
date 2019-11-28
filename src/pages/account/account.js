@@ -1,6 +1,7 @@
 import React from 'react';
 import { auth, firestore } from '../../firebase/firebase.utils';
 import CustomButton from '../../components/custom-button/custom-button.component';
+import BackButton from '../../components/custom-button/back-button';
 import { Link } from 'react-router-dom';
 import './account.css';
 import { EASY, MEDIUM, HARD } from '../../components/constants';
@@ -67,7 +68,7 @@ class Account extends React.Component {
         return ( 
             <div className='account-wrapper'>
                 <Link className='return-link' to='/main'>
-                    <i className="fa fa-arrow-circle-left" style={{ fontSize: 24 }}></i>
+                    <BackButton/>
                 </Link>
                 <h1>Account Details</h1>
                 <p>{'Email: ' + email}</p>

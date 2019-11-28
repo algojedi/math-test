@@ -38,6 +38,16 @@ input {
     display: flex;
     flex-direction: column;
 }
+
+/* --------buttons---------- */
+
+.main-back-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
 #answer-btn {
     background-color: black;
     margin-top: 10px;

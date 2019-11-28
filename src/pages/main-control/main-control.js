@@ -23,13 +23,21 @@ class MainControl extends Component {
             levelSelectionMade: true
         })
     }
+    reset = () => {
+        this.setState({
+            operator: ADD,
+            opSelectionMade: false,
+            level: EASY,
+            levelSelectionMade: false
+        })
+    }
     render() { 
         
         return ( 
             <div>
                 {this.state.opSelectionMade ? 
                     this.state.levelSelectionMade ? 
-                    <Main operator={this.state.operator} level={this.state.level}/> : 
+                    <Main reset={this.reset} operator={this.state.operator} level={this.state.level}/> : 
                     <Level selected={this.levelSelected} /> :
                     <OperatorChoice selected={this.opSelected} />
                 }

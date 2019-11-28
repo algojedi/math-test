@@ -3,7 +3,8 @@ import './main.css';
 import Counter from '../../components/counter/counter';
 import { MULTIPLY, ADD, SUBTRACT } from '../../components/constants'
 import { auth, recordScore } from '../../firebase/firebase.utils';
-import CustomButton from '../../components/custom-button/custom-button.component';
+import BackButton from '../../components/custom-button/back-button';
+
 
 class Main extends Component {
     
@@ -56,8 +57,6 @@ class Main extends Component {
                         topNum: topNumber,
                         bottomNum: this.calcBottomNum(topNumber) });
 
-        //check running score
-        //setTimeout(() => { console.log('current score: ' + this.state.score); }, 500);
     }
     calcTopNum() {
         return Math.floor(Math.random() * this.props.level + 1);
@@ -116,7 +115,11 @@ class Main extends Component {
         return ( 
         
         <div id='q-container'>
-        
+
+                <div className='main-back-btn' onClick={this.props.reset}>
+                    <BackButton />Reselect
+                </div>
+
                 <div id="counter-wrapper">
                     <Counter    reset={this.newCounter}
                                 gameStarted={this.gameStarted}  

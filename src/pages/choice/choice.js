@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomButton from './../../components/custom-button/custom-button.component';
 import './choice.css';
-import { ADD, SUBTRACT, MULTIPLY, DIVIDE } from './../../components/constants';
+import { ADD, SUBTRACT, MULTIPLY } from './../../components/constants';
 import { useSpring, animated } from 'react-spring';
 
 const OperatorChoice = ({ selected }) => {
