@@ -4,6 +4,7 @@ import CustomButton from '../custom-button/custom-button.component';
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 import './sign-in.styles.scss';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { ReactComponent as GSvg } from './../../assets/search.svg';
 import { auth } from '../../firebase/firebase.utils';
 
@@ -90,4 +91,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

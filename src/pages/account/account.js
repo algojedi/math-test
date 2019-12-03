@@ -85,7 +85,6 @@ class Account extends React.Component {
                         <th>Operation</th>
                         <th>Difficulty</th>
                     </tr>
-
                 {/* reverse userHistory in order populate table w most recent on top*/}
                 {this.state.userHistory.length ? this.state.userHistory.reverse().map(record => {
                     console.log('recod is ', record);
@@ -100,8 +99,7 @@ class Account extends React.Component {
                                 <td>{this.convertLevel(record.level)}</td>
                             </tr>
                         </>)
-                }) : ''}
-                    
+                }):null}
                 </tbody></table>
 
                 <CustomButton   style={{marginTop: 250}}

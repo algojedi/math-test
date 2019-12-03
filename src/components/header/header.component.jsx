@@ -5,13 +5,12 @@ import appLogo from './../../assets/micon.jpg';
 import { auth } from '../../firebase/firebase.utils';
 import './header.styles.scss';
 
-const Header = (props, { currentUser }) => {
+const Header = (props) => {
   const currentPath = props.location.pathname;
+  //console.log('props in header: ', props);
   return (
     <div className='header'>
-      
       <img src={appLogo} height='100' alt='app logo'/>
-
       {       
         currentPath === '/main' ? <div></div> :
         <Link className='option' to='/main'>
@@ -20,7 +19,7 @@ const Header = (props, { currentUser }) => {
       }
         
       {
-        currentUser ? (
+        props.currentUser ? (
         <div className="signedIn-options">
           <div className='option' onClick={() => auth.signOut()}>
             Sign Out

@@ -10,7 +10,8 @@ class Main extends Component {
     
     constructor(props) {
         super(props);
-        const topNumber = this.calcTopNum();
+        //const gameInProgressInit = false;
+        //const topNumber = this.calcTopNum();
         this.state = {  input : '',
                         gameInProgress: false, 
                         operator: props.operator,
@@ -18,11 +19,14 @@ class Main extends Component {
                         attempted: 0,
                         score: 0,
                         //level: props.level,
-                        topNum: topNumber,
-                        bottomNum: props.operator === SUBTRACT ?
-                            //need to ensure bottomNum < topNum for subtraction
-                            Math.floor(Math.random() * topNumber + 1) :
-                            Math.floor(Math.random() * props.level + 1) };
+                        // topNum: topNumber,
+                        // bottomNum: props.operator === SUBTRACT ?
+                        //     //need to ensure bottomNum < topNum for subtraction
+                        //     Math.floor(Math.random() * topNumber + 1) :
+                        //     Math.floor(Math.random() * props.level + 1) };
+                        topNum: 0,
+                        bottomNum: 0 
+                    };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.timeOver = this.timeOver.bind(this);
@@ -75,7 +79,12 @@ class Main extends Component {
         if (e.keyCode === 13) this.handleClick(e);
     }
     gameStarted = () => {
-        this.setState({ gameInProgress: true })
+        const topNumber = this.calcTopNum();            
+        this.setState({ 
+            gameInProgress: true,
+            topNum: topNumber,
+            bottomNum: this.calcBottomNum(topNumber)
+        })
     }
     async timeOver() {
         const { score, attempted, operator } = this.state;
@@ -96,7 +105,6 @@ class Main extends Component {
 
     //a function that gets called when counter is reset
     newCounter = () => {
-        const topNumber = this.calcTopNum();
         this.setState({
             input: '',
             gameInProgress: false,
@@ -104,8 +112,8 @@ class Main extends Component {
             gameEnded: false,
             attempted: 0,
             score: 0,
-            topNum: topNumber,
-            bottomNum: this.calcBottomNum(topNumber)
+            topNum: 0,
+            bottomNum: 0
         });
     }
     render() { 
