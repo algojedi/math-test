@@ -1,12 +1,21 @@
 .header {
-  height: 70px;
+  // height: 70px;
   width: 90%;
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
   margin: 20px auto;
+  // align-items: center;
+  padding: 15px;
+  border: 2px dashed red;
+  background-image: radial-gradient(#30506d, #212827);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  
+  justify-items: center;
   align-items: center;
-  padding: 50px;
-  
+
+  & > * {
+    outline: 2px dotted green;
+  }
   .signedIn-options {
     display: flex;
     width: 150px;
@@ -14,6 +23,7 @@
   }
 }
 .option {
-      text-decoration: none;
-      cursor: pointer;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
 }

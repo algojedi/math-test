@@ -16,7 +16,7 @@ class App extends React.Component {
     super();
 
     this.state = {
-      currentUser: null
+      currentUser: null,
     };
   }
 
@@ -55,7 +55,6 @@ class App extends React.Component {
             {this.state.currentUser ? <Redirect to='/main' /> : < SignIn />}
           </Route>
           <Route path='/main' component={MainControl} />
-          {/* <Route path='/signin' component={SignIn} /> */}
           <Route path='/signup' component={SignUp} />
           <Route path='/account' component={Account} />
           

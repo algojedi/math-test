@@ -1,45 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 import appLogo from './../../assets/micon.jpg';
 import { auth } from '../../firebase/firebase.utils';
 import './header.styles.scss';
 
-const Header = ({ currentUser }) => (
-  <div className='header'>
-    
-    <img src={appLogo} height='100' alt='app logo'/>
-
-    {
-      auth.currentUser ? '' :
-    <Link className='option' to='/main'>
-      Click to Play
-    </Link>
-    }
-    
-{/*     
-    <Link className='option' to='/main'>
+const Header = (props, { currentUser }) => {
+  const currentPath = props.location.pathname;
+  return (
+    <div className='header'>
+      
       <img src={appLogo} height='100' alt='app logo'/>
-    </Link> 
-    This section should be updated to allow for a full restart of the game.
-    This would require moving state up a level for a component to have the power of a full refresh
-    */}
-    
-    {currentUser ? (
-      <div className="signedIn-options">
-        <div className='option' onClick={() => auth.signOut()}>
-          SIGN OUT
-        </div>
-        <Link className='option' to='/account'>
-          <i className="fa fa-user-circle-o">Account</i>
-        </Link>
-      </div>
-    ) : (
-      <Link className='option' to='/'>
-        SIGN IN
-      </Link>
-    )}
-  </div>
- 
-);
 
-export default Header;
+      {       
+        currentPath === '/main' ? <div></div> :
+        <Link className='option' to='/main'>
+          Click to Play
+        </Link>
+      }
+        
+      {
+        currentUser ? (
+        <div className="signedIn-options">
+          <div className='option' onClick={() => auth.signOut()}>
+            Sign Out
+          </div>
+          <Link className='option' to='/account'>
+            <i className="fa fa-user-circle-o">Account</i>
+          </Link>
+        </div>
+      ) : (
+        <Link className='option' to='/'>
+          Sign In
+        </Link>
+      )}
+    </div>
+ 
+); }
+
+export default withRouter(Header);
+
+
+/* auth.currentUser ? <div></div> : */ 
