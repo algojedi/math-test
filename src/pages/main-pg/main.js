@@ -96,7 +96,7 @@ class Main extends Component {
             bottomNum: this.calcBottomNum(topNumber)
         })
     }
-    async timeOver() {
+    timeOver = () => {
         const { score, attempted, operator } = this.state;
         const { level } = this.props;
         console.log(`final score is ${score} out of ${attempted}`);
@@ -128,44 +128,50 @@ class Main extends Component {
         });
     }
     render() { 
-        
+        console.log('game ended?: ', this.state.gameEnded);
         const { topNum, bottomNum, score, attempted } = this.state;
         let endMsg = `final score is ${score} out of ${attempted}: ${(score*100/attempted).toFixed(1)}%`;
         return ( 
         
-        <div id='q-container'>
-
-                <div className='main-back-btn' onClick={this.props.reset}>
-                    <BackButton />
-                    <span className='main-back-btn_back'>Back</span>
-                </div>
-
-                <div id="counter-wrapper">
-                    <Counter    reset={this.newCounter}
-                                gameStarted={this.gameStarted}  
-                                timeEnd={this.timeOver}/>
-                </div>
-
-                <div id="question-wrapper">
-                    <div id = 'top'>{topNum}</div>
-                    <div id='bottom'>{this.state.operator + ' ' + bottomNum}</div>
-                    <div id = 'guess-wrapper'>
-                        <input  id='guess'
-                                ref={input => input && input.focus()} 
-                                value={this.state.input}
-                                onChange={this.handleChange}
-                                onKeyDown={this.handleKeyPress}
-                                ></input>
-                        <button id='answer-btn'
-                                onClick = {this.handleClick}>Submit</button>
-
+        <div className="main-container">
+            <div id='question-container'>
+    
+                    <div className='main-back-btn' onClick={this.props.reset}>
+                        <BackButton />
+                        <span className='main-back-btn_back'>Back</span>
                     </div>
-                    <div id='game-end-message'>{this.state.gameEnded ? 
-                    endMsg : ''}</div>
-                </div>
-                {!this.state.gameInProgress ? <p>{this.state.errors}</p> : null }
-                
-        </div> );
+    
+                    <div id="counter-wrapper">
+                        <Counter    reset={this.newCounter}
+                                    gameStarted={this.gameStarted}  
+                                    timeEnd={this.timeOver}/>
+                    </div>
+    
+                    <div id="question-wrapper">
+                        <div id = 'top'>{topNum}</div>
+                        <div id='bottom'>{this.state.operator + ' ' + bottomNum}</div>
+                        <div id = 'guess-wrapper'>
+                            <input  id='guess'
+                                    ref={input => input && input.focus()} 
+                                    value={this.state.input}
+                                    onChange={this.handleChange}
+                                    onKeyDown={this.handleKeyPress}
+                                    ></input>
+                            <button id='answer-btn'
+                                    onClick = {this.handleClick}>Submit</button>
+                        </div>
+                        <div id='game-end-message'>{this.state.gameEnded ? 
+                        endMsg : ''}</div>
+                    </div>
+                    
+            </div> 
+            <ul className='error-list'>
+                {this.state.gameEnded ? 
+                (<> <h3>Your Errors</h3>
+                    {this.state.errors.map(error => <li>{error}</li>)}</>) : null }
+
+            </ul>
+        </div> )
     }
 }
  

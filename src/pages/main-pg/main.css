@@ -1,14 +1,18 @@
-#q-container {
-    width: 300px;
+#question-container {
+    width: 50%;
     margin: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     height: 50vh;
     /* position: relative; */
+    /* background-image: url(../../assets/background.jpg);
+    background-size: cover; */
+    padding: 25px;
+    box-shadow: 2px 2px 2px 2px lightgrey;
 }
-@media screen and (max-width: 500px) {
-    #q-container {
+@media screen and (max-width: 600px) {
+    #question-container {
         flex-direction: column;
         justify-content: space-evenly;
         margin-top: 50px;
@@ -40,6 +44,18 @@ input {
     display: flex;
     flex-direction: column;
 }
+
+.error-list {
+    width: 400px;
+    margin: 15px auto;
+    list-style: none;
+    color: crimson;
+    display: flex;
+    flex-direction: column;
+    font-weight: thick;
+    align-items: center;
+}
+
 
 /* --------buttons---------- */
 
