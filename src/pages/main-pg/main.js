@@ -10,8 +10,6 @@ class Main extends Component {
     
     constructor(props) {
         super(props);
-        //const gameInProgressInit = false;
-        //const topNumber = this.calcTopNum();
         this.state = {  input : '',
                         gameInProgress: false, 
                         operator: props.operator,
@@ -25,7 +23,8 @@ class Main extends Component {
                         //     Math.floor(Math.random() * topNumber + 1) :
                         //     Math.floor(Math.random() * props.level + 1) };
                         topNum: 0,
-                        bottomNum: 0 
+                        bottomNum: 0,
+                        errors: [] 
                     };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -52,15 +51,26 @@ class Main extends Component {
             default:
                 break;
         }
-        let newScore = answer === Number(this.state.input) ? this.state.score + 1 : this.state.score;
+        // let newScore = answer === Number(this.state.input) ? 
+        // this.state.score + 1 : this.state.score;
         
+        //update score or track incorrect answers to display at end
+        let newScore = this.state.score;
+        let newErrors = [...this.state.errors];
+        if (answer === Number(this.state.input)) {
+            newScore++;
+        } else {
+            newErrors.push(
+                `${this.state.topNum} ${this.state.operator} ${this.state.bottomNum} = ${this.state.input}`);
+            }
+
         const topNumber = this.calcTopNum();
         this.setState({ attempted: this.state.attempted + 1,
                         score: newScore,
                         input: '',
                         topNum: topNumber,
-                        bottomNum: this.calcBottomNum(topNumber) });
-
+                        bottomNum: this.calcBottomNum(topNumber),
+                        errors: newErrors });
     }
     calcTopNum() {
         return Math.floor(Math.random() * this.props.level + 1);
@@ -100,7 +110,7 @@ class Main extends Component {
             recordScore(user, { score, attempted, operator, level } 
                 
         )}, 500);
-
+                console.log(this.state.errors);
     }
 
     //a function that gets called when counter is reset
@@ -113,7 +123,8 @@ class Main extends Component {
             attempted: 0,
             score: 0,
             topNum: 0,
-            bottomNum: 0
+            bottomNum: 0,
+            errors: []
         });
     }
     render() { 
@@ -125,7 +136,8 @@ class Main extends Component {
         <div id='q-container'>
 
                 <div className='main-back-btn' onClick={this.props.reset}>
-                    <BackButton />Reselect
+                    <BackButton />
+                    <span className='main-back-btn_back'>Back</span>
                 </div>
 
                 <div id="counter-wrapper">
@@ -151,6 +163,8 @@ class Main extends Component {
                     <div id='game-end-message'>{this.state.gameEnded ? 
                     endMsg : ''}</div>
                 </div>
+                {!this.state.gameInProgress ? <p>{this.state.errors}</p> : null }
+                
         </div> );
     }
 }

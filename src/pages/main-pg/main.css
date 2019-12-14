@@ -5,11 +5,13 @@
     justify-content: space-between;
     align-items: center;
     height: 50vh;
+    /* position: relative; */
 }
 @media screen and (max-width: 500px) {
     #q-container {
         flex-direction: column;
         justify-content: space-evenly;
+        margin-top: 50px;
     }
 
 }
@@ -43,18 +45,30 @@ input {
 
 .main-back-btn {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 175px;
+    left: 50px;
     cursor: pointer;
+    display: flex;
+    width: 75px;
+    justify-content: space-around;
+}
+@media screen and (mix-width: 1300px) {
+    .main-back-btn {
+        left: 75px;
+    }
 }
 
+.main-back-btn_back {
+    display: block;
+    font-style: italic;
+}
 #answer-btn {
     background-color: black;
     margin-top: 10px;
     color: white;
     height: 50px;
     letter-spacing: 0.5px;
-    font-family: helvetica, sans-serif;
+    /* font-family: helvetica, sans-serif; */
     font-size: 15px;
     border: none;
     cursor: pointer;

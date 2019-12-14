@@ -59,17 +59,18 @@ class Account extends React.Component {
             return (<div className='please-sign-in'> Please sign in to view account</div>);
         }
         const user = auth.currentUser;
-        const { email, displayName, uid } = user;
+        const { email, displayName } = user;
         
         if (!this.state.renderedStats) { //a condition to prevent infinite loop
             this.fetchHistory();
         }
+        let maxScore = 0;
 
         return ( 
             <div className='account-wrapper'>
-                <Link className='return-link' to='/main'>
+                {/* <Link className='return-link' to='/main'>
                     <BackButton/>
-                </Link>
+                </Link> */}
                 <h1>Account Details</h1>
                 <p>{'Email: ' + email}</p>
                 <p>{displayName ? `Display Name: ${displayName}` : '' }</p>
@@ -81,16 +82,17 @@ class Account extends React.Component {
                         <th>Date</th>
                         <th>Score</th>
                         <th>Attempts</th>
-                        <th>% Score</th>
+                        <th>Pct</th>
                         <th>Operation</th>
                         <th>Difficulty</th>
                     </tr>
                 {/* reverse userHistory in order populate table w most recent on top*/}
                 {this.state.userHistory.length ? this.state.userHistory.reverse().map(record => {
-                    console.log('recod is ', record);
+                    console.log('record is ', record);
+                    maxScore = maxScore > record.score ? maxScore : record.score;
                     return (
-                        <>
-                            <tr>
+                        
+                            <tr key={record.createdAt}>
                                 <td>{record.createdAt.toDate().toDateString()}</td>
                                 <td>{record.score}</td>
                                 <td>{record.attempted}</td>
@@ -98,10 +100,10 @@ class Account extends React.Component {
                                 <td>{this.opTranslate(record.operator)}</td>
                                 <td>{this.convertLevel(record.level)}</td>
                             </tr>
-                        </>)
+                        )
                 }):null}
                 </tbody></table>
-
+                <p>Max score is {maxScore}</p>
                 <CustomButton   style={{marginTop: 250}}
                                 isStopBtn={true} 
                                 large={true}
