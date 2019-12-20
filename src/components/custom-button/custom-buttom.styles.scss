@@ -1,9 +1,9 @@
 .custom-button {
-  min-width: 165px;
-  // width: auto;
-  height: 50px;
-  line-height: 50px;
-  padding: 0 35px 0 35px;
+  //min-width: max-content;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 35px;
   font-size: 15px;
   background-color: #212827;
   color: white;
@@ -19,7 +19,6 @@
     width: 100%;
   }
   &.google-sign-in {
-    // background-color: black;
     color: #212827;
     display: flex;
     align-items: center;

@@ -16,15 +16,18 @@ class SignIn extends React.Component {
     this.state = {
       email: '',
       password: '',
+      isLoading: false,
       failedLogin: false
     };
   }
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState( { isLoading: true, failedLogin: false } );
+
     const { email, password } = this.state;
     
-    console.log('trying to log in w. ', email, password);
+    //console.log('trying to log in w. ', email, password);
     
     //TODO: must validate credentials against firebase
     try {
@@ -32,13 +35,14 @@ class SignIn extends React.Component {
       this.setState({ email: '', password: '' });
       this.props.history.push('/main');
       console.log('user logged in and authenticated');
+      this.setState({ isLoading: false });
+
     } catch(err) {
         console.log(err);
         this.setState({ failedLogin: true });
-    }
-    // if (!auth.currentUser) {
-    //   this.setState({ failedLogin: true });
-    // }
+        this.setState({ isLoading: false });
+      }
+    
   };
 
   handleChange = event => {
@@ -47,7 +51,8 @@ class SignIn extends React.Component {
   };
 
   render() {
-    
+    let message = this.state.isLoading ? 'loading...' : '';
+
     return (
       <div className='sign-in'>
         <h1>Sign In</h1>
@@ -79,7 +84,7 @@ class SignIn extends React.Component {
             </CustomButton>
           </div>
         </form>
-        {this.state.failedLogin ? <div style={{color:'red'}}> Incorrect username or password </div> : '' }
+        {this.state.failedLogin ? <div style={{color:'red'}}> Incorrect username or password </div> : message }
         <Link style={{ textDecoration: 'none' }} to='/signup'>
           <p>
             No Account Yet? Register Now

@@ -1,24 +1,23 @@
 #question-container {
     width: 50%;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 50vh;
-    /* position: relative; */
-    /* background-image: url(../../assets/background.jpg);
-    background-size: cover; */
-    padding: 25px;
-    box-shadow: 2px 2px 2px 2px lightgrey;
-}
-@media screen and (max-width: 600px) {
-    #question-container {
-        flex-direction: column;
-        justify-content: space-evenly;
-        margin-top: 50px;
-    }
+    margin: 75px auto;
 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    justify-items: center;
+    justify-content: center;
+    /* height: 50vh; */
+    background-image: url(../../assets/background2.jpg), linear-gradient(rgba(235, 241, 253, .9),lightblue);
+    background-blend-mode: lighten;
+    background-size: cover;
+    padding: 25px;
+    box-shadow: 3px 3px 3px 1px grey;
+    
 }
+
+#question-container > * {
+}
+
 
 #top, #bottom {
     font-size: 2em;
@@ -33,18 +32,28 @@ input {
     font-size: 1.5em;
 }
 
-#question-wrapper {
-    width: 35%;
-}
-#counter-wrapper {
-    width: 65%;
+#question-wrapper, #counter-wrapper {
+    margin: 5px;
+    padding: 10px;
 }
 
+@media screen and (max-width: 600px) {
+    #question-wrapper, #counter-wrapper {
+        padding: 0;
+        margin: 0;
+    }
+}
 #guess-wrapper {
     display: flex;
     flex-direction: column;
 }
 
+#guess-field {
+    width: 150px;
+}
+#guess-field:hover {
+    border: 2px solid rgba(73, 127, 235, 0.75);
+}
 .error-list {
     width: 400px;
     margin: 15px auto;
@@ -82,14 +91,14 @@ input {
     background-color: black;
     margin-top: 10px;
     color: white;
-    height: 50px;
+    /* height: 50px;
     letter-spacing: 0.5px;
-    /* font-family: helvetica, sans-serif; */
+    font-family: helvetica, sans-serif;
     font-size: 15px;
     border: none;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s; */
 }
 #answer-btn:hover {
     background-color: white;

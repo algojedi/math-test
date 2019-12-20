@@ -4,7 +4,7 @@ import Counter from '../../components/counter/counter';
 import { MULTIPLY, ADD, SUBTRACT } from '../../components/constants'
 import { auth, recordScore } from '../../firebase/firebase.utils';
 import BackButton from '../../components/custom-button/back-button';
-
+import CustomButton from './../../components/custom-button/custom-button.component';
 
 class Main extends Component {
     
@@ -134,12 +134,12 @@ class Main extends Component {
         return ( 
         
         <div className="main-container">
+            <div className='main-back-btn' onClick={this.props.reset}>
+                <BackButton />
+                <span className='main-back-btn_back'>Back</span>
+            </div>
             <div id='question-container'>
     
-                    <div className='main-back-btn' onClick={this.props.reset}>
-                        <BackButton />
-                        <span className='main-back-btn_back'>Back</span>
-                    </div>
     
                     <div id="counter-wrapper">
                         <Counter    reset={this.newCounter}
@@ -151,14 +151,17 @@ class Main extends Component {
                         <div id = 'top'>{topNum}</div>
                         <div id='bottom'>{this.state.operator + ' ' + bottomNum}</div>
                         <div id = 'guess-wrapper'>
-                            <input  id='guess'
+                            <input  id='guess-field'
                                     ref={input => input && input.focus()} 
                                     value={this.state.input}
                                     onChange={this.handleChange}
                                     onKeyDown={this.handleKeyPress}
                                     ></input>
-                            <button id='answer-btn'
-                                    onClick = {this.handleClick}>Submit</button>
+                            <CustomButton id='answer-btn' onClick={this.handleClick}
+                                isResetBtn='true'>Submit</CustomButton>
+                                                
+                            {/* <button id='answer-btn'
+                                    onClick = {this.handleClick}>Submit</button> */}
                         </div>
                         <div id='game-end-message'>{this.state.gameEnded ? 
                         endMsg : ''}</div>

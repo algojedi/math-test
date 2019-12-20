@@ -1,8 +1,8 @@
 import React from 'react';
 import { auth, firestore } from '../../firebase/firebase.utils';
 import CustomButton from '../../components/custom-button/custom-button.component';
-import BackButton from '../../components/custom-button/back-button';
-import { Link } from 'react-router-dom';
+// import BackButton from '../../components/custom-button/back-button';
+// import { Link } from 'react-router-dom';
 import './account.css';
 import { EASY, MEDIUM, HARD } from '../../components/constants';
 
@@ -65,18 +65,21 @@ class Account extends React.Component {
             this.fetchHistory();
         }
         let maxScore = 0;
+        let maxDate = ''; //date of max score
+        //let maxOp = ''; //operation of max score
+        let emptyTableMsg = 'Please play to see scores';
+
+        
 
         return ( 
             <div className='account-wrapper'>
-                {/* <Link className='return-link' to='/main'>
-                    <BackButton/>
-                </Link> */}
+               
                 <h1>Account Details</h1>
                 <p>{'Email: ' + email}</p>
                 <p>{displayName ? `Display Name: ${displayName}` : '' }</p>
                 
 
-                <h2>Previous Scores</h2>
+                <h2 className='table-title'>Previous Scores</h2>
                 <table className='scores-table'><tbody className='table-wrapper'>
                     <tr>
                         <th>Date</th>
@@ -88,8 +91,12 @@ class Account extends React.Component {
                     </tr>
                 {/* reverse userHistory in order populate table w most recent on top*/}
                 {this.state.userHistory.length ? this.state.userHistory.reverse().map(record => {
-                    console.log('record is ', record);
-                    maxScore = maxScore > record.score ? maxScore : record.score;
+                    
+                    if ( record.score > maxScore) {
+                        maxScore = record.score;
+                        maxDate = record.createdAt.toDate().toDateString();
+                        //maxOp = this.opTranslate(record.operator);
+                    }
                     return (
                         
                             <tr key={record.createdAt}>
@@ -102,8 +109,11 @@ class Account extends React.Component {
                             </tr>
                         )
                 }):null}
-                </tbody></table>
-                <p>Max score is {maxScore}</p>
+                </tbody>
+                </table>
+                <p className='max-score-msg'>{this.state.userHistory.length ?
+                    `Max score of ${maxScore} on ${maxDate}` : emptyTableMsg}</p>
+
                 <CustomButton   style={{marginTop: 250}}
                                 isStopBtn={true} 
                                 large={true}

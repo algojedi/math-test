@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
-import appLogo from './../../assets/micon.jpg';
 import { auth } from '../../firebase/firebase.utils';
 import './header.styles.scss';
 
 const Header = (props) => {
   const currentPath = props.location.pathname;
-  //console.log('props in header: ', props);
   return (
     <div className='header'>
-      <img src={appLogo} height='100' alt='app logo'/>
+      <p className='appLogo'>The Math App</p>
+      
       {       
         currentPath === '/main' ? <div></div> :
         <Link className='option' to='/main'>

@@ -10,6 +10,9 @@
     font-weight: bolder;
     margin: 15px;
 }
+.table-title {
+    margin-bottom: 2.5em;
+}
 .scores-table {
     width: 100%;
 }
@@ -25,9 +28,12 @@ th {
     margin-top: 200px;
 }
 
-/* .return-link {
+.max-score-msg {
     position: absolute;
-    left: 40px;
-    top: -25px;
-    display: inline-block;
-} */
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: red;
+    padding: 0;
+    margin-top: 0;
+}
