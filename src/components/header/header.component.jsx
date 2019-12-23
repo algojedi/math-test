@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
-import { auth } from '../../firebase/firebase.utils';
+import { auth, signingOut } from '../../firebase/firebase.utils';
 import './header.styles.scss';
 
 const Header = (props) => {
@@ -22,8 +22,15 @@ const Header = (props) => {
       {
         props.currentUser ? (
         <div className="signedIn-options">
-          <div className='option' onClick={() => auth.signOut()}>
-            Sign Out
+          <div className='option' onClick={() => 
+            // { auth.signOut(); }}>
+            { signingOut(); 
+              //console.log(props.signout);
+              // setTimeout(props.signout(), 0);
+              props.signout();
+              console.log('unsubbed after signout!?') }}>
+              
+                Sign Out
           </div>
           <Link className='option' to='/account'>
             <i className="fa fa-user-circle-o"></i>

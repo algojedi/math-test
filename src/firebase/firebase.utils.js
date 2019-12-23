@@ -31,9 +31,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
                 email,
                 createdAt,
                 ...additionalData
-            }, function (error) { console.log(error); }); 
-            //the above CB fn to handle errors, esp because there is no unsubsribing 
-            //from firestore when signing out
+            })
+            
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -41,34 +40,41 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef;
 };
 
+export const signingOut = () => {
+    firebase.auth().signOut().then(function () {
+        console.log('Sign-out successful');
+    }, function (error) {
+        console.log('Sign-out unsuccessful');
+    });
+}
 export const recordScore = async (userAuth, additionalData) => {
     if (!userAuth) return;
-
+    let userRef = null;
     const { uid } = userAuth;
     const { score, attempted, operator, level } = additionalData;
     const createdAt = new Date();
     try {
         
-        firestore.collection('scores').doc(uid)
+        userRef = await firestore.collection('scores').doc(uid)
             .collection('history').doc(createdAt.getTime().toString()).set({
             createdAt,
             score, 
             attempted,
             operator,
             level
-        }, function (error) { console.log(error); })
+            })
         
     } catch (error) {
         console.log('error entering score', error.message);
       }
-    //return userRef;
+    return userRef;
 };
 
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
-
 const provider = new firebase.auth.GoogleAuthProvider();
+
 provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 

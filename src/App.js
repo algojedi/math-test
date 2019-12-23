@@ -6,8 +6,6 @@ import Header from './components/header/header.component';
 import SignIn from './components/sign-in/sign-in.component';
 import SignUp from './components/sign-up/sign-up.component';
 import Account from './pages/account/account';
-
-
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends React.Component {
@@ -20,13 +18,14 @@ class App extends React.Component {
   }
 
   unsubscribeFromAuth = null;
-
+  unsubscribeFromSnapshot = null;
+  
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         //snapshot has all the important user information
-        userRef.onSnapshot(snapShot => {
+        this.unsubscribeFromSnapshot = userRef.onSnapshot(snapShot => {
           this.setState({
             currentUser: {
               id: snapShot.id,
@@ -34,7 +33,6 @@ class App extends React.Component {
             }
           });
 
-         //console.log(this.state);
         });
       }
       this.setState({ currentUser: userAuth });  //sets user to null when signing out
@@ -48,7 +46,7 @@ class App extends React.Component {
   render() {
     return (
       <div className='App'>
-        <Header currentUser={this.state.currentUser} />
+        <Header currentUser={this.state.currentUser} signout={this.unsubscribeFromSnapshot}  />
         <Switch>
           <Route exact path='/'>
             {this.state.currentUser ? <Redirect to='/main' /> : < SignIn />}

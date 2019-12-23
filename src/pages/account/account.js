@@ -11,10 +11,9 @@ class Account extends React.Component {
         this.state = { userHistory : [], renderedStats : false };
     }
 
-    fetchHistory = () => {
+    fetchHistory = async () => {
         const userHistory = [];
-        console.log('fetch history called while auth is ', auth.currentUser.uid);
-        firestore.collection(`/scores/${auth.currentUser.uid}/history`).get()
+        await firestore.collection(`/scores/${auth.currentUser.uid}/history`).get()
             .then(qs => {
                 qs.docs.forEach(record => {
                     const { attempted, score, createdAt, operator, level } = record.data();

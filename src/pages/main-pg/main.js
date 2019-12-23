@@ -119,7 +119,6 @@ class Main extends Component {
         });
     }
     render() { 
-        //console.log('game ended?: ', this.state.gameEnded);
         const { topNum, bottomNum, score, attempted } = this.state;
         let endMsg = `Final score is ${score} out of ${attempted}: ${(score*100/attempted).toFixed(1)}%`;
         return ( 
