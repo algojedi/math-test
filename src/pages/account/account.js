@@ -1,8 +1,6 @@
 import React from 'react';
 import { auth, firestore } from '../../firebase/firebase.utils';
 import CustomButton from '../../components/custom-button/custom-button.component';
-// import BackButton from '../../components/custom-button/back-button';
-// import { Link } from 'react-router-dom';
 import './account.css';
 import { EASY, MEDIUM, HARD } from '../../components/constants';
 
@@ -15,7 +13,7 @@ class Account extends React.Component {
 
     fetchHistory = () => {
         const userHistory = [];
-
+        console.log('fetch history called while auth is ', auth.currentUser.uid);
         firestore.collection(`/scores/${auth.currentUser.uid}/history`).get()
             .then(qs => {
                 qs.docs.forEach(record => {
@@ -45,14 +43,21 @@ class Account extends React.Component {
         }
     }
     opTranslate(operation) {
-        //console.log("x" == operation);
         switch (operation) {
-            case "\u002B": return 'Addition';
-            case "\u2212": return 'Subtraction';
-            case "\u00D7": return 'Multiplication';
+            case "\u002B": return 'Add';
+            case "\u2212": return 'Subtr';
+            case "\u00D7": return 'Mult';
             default:
                 return 'unrecognized operation';
         }
+    }
+    parseDate(fullDate) {
+        let stringDate = fullDate.toDate().toDateString();
+        let arrDate = stringDate.split(' ');
+        //splice to remove day of the week from array
+        let parsedDate = arrDate.splice(1);
+        return parsedDate.join(' ');
+
     }
     render() {
         if (!auth.currentUser) {
@@ -95,12 +100,11 @@ class Account extends React.Component {
                     if ( record.score > maxScore) {
                         maxScore = record.score;
                         maxDate = record.createdAt.toDate().toDateString();
-                        //maxOp = this.opTranslate(record.operator);
                     }
                     return (
                         
                             <tr key={record.createdAt}>
-                                <td>{record.createdAt.toDate().toDateString()}</td>
+                                <td>{this.parseDate(record.createdAt)}</td>
                                 <td>{record.score}</td>
                                 <td>{record.attempted}</td>
                                 <td>{(record.score*100 / record.attempted).toFixed(2)}</td>
@@ -117,7 +121,6 @@ class Account extends React.Component {
                 <CustomButton   style={{marginTop: 250}}
                                 isStopBtn={true} 
                                 large={true}
-                                // className='delete-btn'
                                 onClick={() => {
                                     user.delete().then(function () {
                                         // User deleted.

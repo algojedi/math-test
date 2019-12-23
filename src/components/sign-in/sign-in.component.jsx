@@ -27,18 +27,17 @@ class SignIn extends React.Component {
 
     const { email, password } = this.state;
     
-    //console.log('trying to log in w. ', email, password);
     
     //TODO: must validate credentials against firebase
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: '', password: '' });
+      this.setState({ isLoading: false, email: '', password: '' });
+      //this.setState({ isLoading: false });
       this.props.history.push('/main');
-      console.log('user logged in and authenticated');
-      this.setState({ isLoading: false });
+      //console.log('user logged in and authenticated');
 
     } catch(err) {
-        console.log(err);
+        //console.log(err);
         this.setState({ failedLogin: true });
         this.setState({ isLoading: false });
       }

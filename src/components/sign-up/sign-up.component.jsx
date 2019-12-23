@@ -12,7 +12,8 @@ class SignUp extends React.Component {
       displayName: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      errorMsg: ''
     };
   }
 
@@ -33,7 +34,7 @@ class SignUp extends React.Component {
       );
 
       //createUserPD returns user reference.
-      const newUser = await createUserProfileDocument(user, { displayName });
+      await createUserProfileDocument(user, { displayName });
 
       this.setState({
         displayName: '',
@@ -43,7 +44,8 @@ class SignUp extends React.Component {
       });
       this.props.history.push('/');
     } catch (error) {
-      console.error(error);
+      //console.error(error.message);
+      this.setState({ errorMsg: error.message });
     }
   };
 
@@ -93,6 +95,7 @@ class SignUp extends React.Component {
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
         </form>
+        <div className='sign-up_error'>{this.state.errorMsg}</div>
       </div>
     );
   }

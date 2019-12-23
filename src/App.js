@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import MainControl from './pages/main-control/main-control';
-// import SignInOrPlay from './components/signIn-play/signinPlay';
 import Header from './components/header/header.component';
 import SignIn from './components/sign-in/sign-in.component';
 import SignUp from './components/sign-up/sign-up.component';
@@ -35,7 +34,7 @@ class App extends React.Component {
             }
           });
 
-          console.log(this.state);
+         //console.log(this.state);
         });
       }
       this.setState({ currentUser: userAuth });  //sets user to null when signing out

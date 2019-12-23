@@ -31,7 +31,9 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
                 email,
                 createdAt,
                 ...additionalData
-            });
+            }, function (error) { console.log(error); }); 
+            //the above CB fn to handle errors, esp because there is no unsubsribing 
+            //from firestore when signing out
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -54,7 +56,7 @@ export const recordScore = async (userAuth, additionalData) => {
             attempted,
             operator,
             level
-        })
+        }, function (error) { console.log(error); })
         
     } catch (error) {
         console.log('error entering score', error.message);

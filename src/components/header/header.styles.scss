@@ -8,27 +8,47 @@
   justify-items: center;
   align-items: center;
 
-    & > * {
-      outline: 2px solid white;
-    }
-    .appLogo {
-      font-family: 'Lakki Reddy', cursive;
-      color: white;
-      font-size: 1.5em;
-      display: block;
-      margin: 0;
-      // padding: 0;
+    //& > * { outline: 1px solid white;}
+    .logo-wrapper {
+      border: 2px solid white;
+      padding: 6px 6px 0 6px;
+      min-width: 100px;
+      .appLogo {
+        font-family: 'Lakki Reddy', cursive;
+        color: white;
+        font-size: 1.5em;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+
+        @media screen and (max-width: 600px) {
+          font-size: 1em;
+        }
+      }
     }
 
     .signedIn-options {
       display: flex;
       width: 150px;
       justify-content: space-between;
+      margin: 0;
+      flex-direction: column;
+      height: 100%;
+      width: auto;
+      @media screen and (max-width: 550px) {
+        font-size: .75em;
+
+      }
     }
 
   .option {
       text-decoration: none;
       cursor: pointer;
+      margin: 0;
       color: white;
+      text-align: center;
+      .account-link {
+        font-family: inherit;
+      }
   }
 }

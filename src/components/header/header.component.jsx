@@ -8,7 +8,9 @@ const Header = (props) => {
   const currentPath = props.location.pathname;
   return (
     <div className='header'>
-      <p className='appLogo'>The Math App</p>
+      <div className="logo-wrapper">
+        <p className='appLogo'>The Math App</p>
+      </div>
       
       {       
         currentPath === '/main' ? <div></div> :
@@ -24,19 +26,17 @@ const Header = (props) => {
             Sign Out
           </div>
           <Link className='option' to='/account'>
-            <i className="fa fa-user-circle-o">Account</i>
+            <i className="fa fa-user-circle-o"></i>
+            <span className='account-link'>Account</span>
           </Link>
         </div>
-      ) : (
-        <Link className='option' to='/'>
-          Sign In
-        </Link>
+        ) : (
+          <Link className='option' to='/'>
+            Sign In
+          </Link>
       )}
     </div>
  
 ); }
 
 export default withRouter(Header);
-
-
-/* auth.currentUser ? <div></div> : */ 

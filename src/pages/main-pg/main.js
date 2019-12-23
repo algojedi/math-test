@@ -16,12 +16,6 @@ class Main extends Component {
                         gameEnded: false,
                         attempted: 0,
                         score: 0,
-                        //level: props.level,
-                        // topNum: topNumber,
-                        // bottomNum: props.operator === SUBTRACT ?
-                        //     //need to ensure bottomNum < topNum for subtraction
-                        //     Math.floor(Math.random() * topNumber + 1) :
-                        //     Math.floor(Math.random() * props.level + 1) };
                         topNum: 0,
                         bottomNum: 0,
                         errors: [] 
@@ -51,8 +45,6 @@ class Main extends Component {
             default:
                 break;
         }
-        // let newScore = answer === Number(this.state.input) ? 
-        // this.state.score + 1 : this.state.score;
         
         //update score or track incorrect answers to display at end
         let newScore = this.state.score;
@@ -99,7 +91,6 @@ class Main extends Component {
     timeOver = () => {
         const { score, attempted, operator } = this.state;
         const { level } = this.props;
-        console.log(`final score is ${score} out of ${attempted}`);
         this.setState({ gameEnded: true, gameInProgress : false });
         const user = auth.currentUser;
         if (!user) { //score does not get saved unless signed in
@@ -110,7 +101,7 @@ class Main extends Component {
             recordScore(user, { score, attempted, operator, level } 
                 
         )}, 500);
-                console.log(this.state.errors);
+                
     }
 
     //a function that gets called when counter is reset
@@ -128,53 +119,49 @@ class Main extends Component {
         });
     }
     render() { 
-        console.log('game ended?: ', this.state.gameEnded);
+        //console.log('game ended?: ', this.state.gameEnded);
         const { topNum, bottomNum, score, attempted } = this.state;
-        let endMsg = `final score is ${score} out of ${attempted}: ${(score*100/attempted).toFixed(1)}%`;
+        let endMsg = `Final score is ${score} out of ${attempted}: ${(score*100/attempted).toFixed(1)}%`;
         return ( 
-        
+        <React.Fragment>
+        <div className='main-back-btn' onClick={this.props.reset}>
+            <BackButton />
+            <span className='main-back-btn_back'>Back</span>
+        </div>
         <div className="main-container">
-            <div className='main-back-btn' onClick={this.props.reset}>
-                <BackButton />
-                <span className='main-back-btn_back'>Back</span>
+            <div className="timer-wrapper">
+                <Counter    reset={this.newCounter}
+                            gameStarted={this.gameStarted}  
+                            timeEnd={this.timeOver}/>
             </div>
-            <div id='question-container'>
-    
-    
-                    <div id="counter-wrapper">
-                        <Counter    reset={this.newCounter}
-                                    gameStarted={this.gameStarted}  
-                                    timeEnd={this.timeOver}/>
-                    </div>
-    
-                    <div id="question-wrapper">
-                        <div id = 'top'>{topNum}</div>
-                        <div id='bottom'>{this.state.operator + ' ' + bottomNum}</div>
-                        <div id = 'guess-wrapper'>
-                            <input  id='guess-field'
-                                    ref={input => input && input.focus()} 
-                                    value={this.state.input}
-                                    onChange={this.handleChange}
-                                    onKeyDown={this.handleKeyPress}
-                                    ></input>
-                            <CustomButton id='answer-btn' onClick={this.handleClick}
-                                isResetBtn='true'>Submit</CustomButton>
-                                                
-                            {/* <button id='answer-btn'
-                                    onClick = {this.handleClick}>Submit</button> */}
-                        </div>
-                        <div id='game-end-message'>{this.state.gameEnded ? 
-                        endMsg : ''}</div>
-                    </div>
+            <div className='question-wrapper'>
+                <div className="question-set">
+                    <div className= 'top-question-num'>{topNum}</div>
+                    <div className='question-operator'>{this.state.operator}</div>
+                    <div className='bottom-question-num'>{bottomNum}</div>
+                </div>
+                
+                <input className='answer-input-field'
+                        ref={input => input && input.focus()} 
+                        value={this.state.input}
+                        onChange={this.handleChange}
+                        onKeyDown={this.handleKeyPress}
+                        ></input>
+                <CustomButton  onClick={this.handleClick}
+                        // isResetBtn='true' className='answer-btn'
+                        >Submit</CustomButton>
+            </div>                        
                     
-            </div> 
-            <ul className='error-list'>
-                {this.state.gameEnded ? 
-                (<> <h3>Your Errors</h3>
-                    {this.state.errors.map(error => <li>{error}</li>)}</>) : null }
+            <div className='game-end-message'>{this.state.gameEnded ? 
+                    endMsg : ''}</div>
+        </div>    
+        <ul className='error-list'>
+                {this.state.gameEnded && this.state.errors.length > 0 ? 
+            (<> <h3 className='errors-title'>Your Errors</h3>
+                {this.state.errors.map((error, i) => <li key={i}>{error}</li>)}</>) : null }
 
-            </ul>
-        </div> )
+        </ul>
+         </React.Fragment>)
     }
 }
  

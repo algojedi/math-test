@@ -30,7 +30,7 @@ th {
 
 .max-score-msg {
     position: absolute;
-    top: 140px;
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
     color: red;
